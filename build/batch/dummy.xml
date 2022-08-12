@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="batchSpec">
+
+  <import file="${build.batch}/batchAusiliario.xml"  as="aux" />
+  
+		
+  <!--  
+       Aggiunge al JAR eventuali librerie già presenti ed incluse nel progetto WAR (quelle tra cui scegliere si trovano sotto "target/{app}/WEB-INF/lib")
+       NB: a queste librerie vengono automaticamente aggiunte quelle specificate nel patternset librerie.batch definito in batchAusiliario.xml
+  -->
+  <patternset id="librerie.custom">
+    <!-- <include name="stdreport-2*.jar" />
+    <include name="ojdbc14*.jar" />
+    <include name="itextpdf-5.*.jar" /> -->
+  </patternset>
+
+  <!-- patternset per le classi specifiche di questo batch da includere nel jar
+       NB: a queste classi vengono automaticamente aggiunte quelle specificate nel patternset classi.batch definito in batchAusiliario.xml 
+  -->
+  <patternset id="classi.custom">
+    <!-- Esempio 
+       <include name="sm/ciscoop/${appl}/util//*.class" />   -->
+  </patternset>
+
+
+  <!--
+     include tutte le risorse aggiuntive da copiare in main.jar 
+     se no si vuole includere nulla inserire il seguente comando di esclusione come unica istruzione:
+       <exclude name="/" />
+   -->
+  <patternset id="resource.custom">
+    <!-- Esempio
+      <include name="sm/ciscoop/${appl}/mail/*.*" /> -->   
+  </patternset>
+
+	 
+  <!--  Le librerie custom che si vogliono aggiungere al JAR vanno copiate sotto ${target.batch.libs} per essere incluse in automatico
+        La differenza con "librerie.custom" è che le librerie aggiunte NON sono già presenti ed incluse nel progetto WAR (quelle che si trovano sotto "target/{app}/WEB-INF/lib")
+        NB: a queste librerie vengono automaticamente aggiunte quelle specificate nel patternset commons.librerie.batch 
+            definito in batchAusiliario.xml e nel patternset librerie.custom
+    -->
+  <target name="copia.lib.custom.esterne">
+
+  </target>
+	
+</project>
+

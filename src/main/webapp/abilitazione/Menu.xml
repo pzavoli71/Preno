@@ -1,0 +1,54 @@
+<!--  DOCUMENTAZIONE PER ATTRIBUTI DI MENU
+
+      tag <LstMenu>
+        hideDisabled="true"/"false"   ==> se "true" quando una voce non ha il permesso viene nascosta, se "false" viene solo disabilitata
+                                  questo attributo viene ereditato da tutti i menu, sottomenu e voci 
+
+      tag <Menu>
+        nome="nome menu"      ==> il nome che comparirÃ  come intestazione di menu o submenu; deve essere univoco, non ci possono essere due menu con stesso nome
+        id="id menu"          ==> opzionale: se ci sono due menu con stesso nome, si puÃ² usare l'attributo id per distinguerli; deve essere univoco, non ci possono essere due menu con stesso id
+        hideDisabled="true"/"false"  ==> se "true" quando una voce non ha il permesso viene nascosta; se "false" viene solo disabilitata
+                                  questo attributo viene ereditato da tutti i sottomenu e voci contenuti in questo menu; 
+                                  se specificato, sovrascrive quelle eventualmente presente in LstMenu o in Menu padre
+
+      tag <Voce>
+        onclick="javascript" ==> codice javascript valutato a runtime; gli attributi href e target sono ignorati 
+        inwindow="true"      ==> apre l'url specificato in "href" nella window di nome "target": se target non c'Ã¨ usa "_blank"
+        href = "url"         ==> crea la iframe standard con il nome definito in "target", se non giÃ  creata; 
+                                 poi apre l'url specificato in "href" nella iframe "target" con il metodo standard AppGlob.apriIframe
+                                 se "target" assente oppure "_blank" emette errore e non fa nulla
+        target = "nome"      ==> se "href" specificato e "inwindow" no, crea un iframe dinamicamente calcolando il nome dall'url
+                                 se "href" e "inwindow" specificati, Ã¨ utilizzabile ma non obbligatorio, se assente si assume "_blank"
+        tip = "testo"        ==> se presente, genera un testo sotto la voce di menu con lo scopo di descrivere brevemente la funzione
+                                 
+      tag <Menu> e tag <Voce> (attributi comuni)
+        funzione = "nome"     ==> nome della funzione di cui avere il permesso "A" per avere il menu o la voce disponibili
+        forzaAbilitato="true" ==> forza disponibilitÃ  di voce/menu senza guardare ai permessi di applicativo ("funzione" ignorato)
+ -->
+<DOCUMENTO>
+  <LstMenu hideDisabled="false">
+    <Menu nome="Amministrazione" funzione="Amministrazione" forzaAbilitato="false">
+      <Voce funzione="HLstTrans" href="abilitazione/HLstTrans?MPasso=2" fa="fa-edit" forzaAbilitato="true">Funzioni applicativo</Voce>
+      <Voce funzione="HLstGruppo" href="abilitazione/HLstGruppo?MPasso=2" fa="fa-edit">Gruppi funzionali</Voce>
+      <Voce funzione="HLstUtente" href="abilitazione/HLstUtente?MPasso=2" fa="fa-edit">Utenti del portale</Voce>
+      <Voce funzione="HLstRuolo" href="abilitazione/HLstRuolo?MPasso=2" fa="fa-edit">Ruoli del portale</Voce>
+      <Voce type="separator" />
+      <Voce funzione="HGUtentiCollegati" href="commons/servlet/HGUtentiCollegati">Utenti attualmente collegati</Voce>
+      <Voce funzione="HLstSimulaUtente" href="commons/servlet/HLstSimulaUtente">Simula un profilo utente</Voce>
+      <Voce funzione="HGSimulaUtente" href="commons/servlet/HGSimulaUtente?op=simula_sessione">Simula un Utente del Portale</Voce>
+      <Voce funzione="HGAggEnumerati" href="commons/servlet/HGAggEnumerati" icon="fas fa-sync">Aggiorna Enumerati</Voce>
+      <Voce funzione="HGConfigurationManager" href="commons/servlet/HGConfigurationManager">Configurazione applicativo</Voce>
+      <Voce funzione="HGDebugServ" href="commons/servlet/HGDebugServ">Debug Servlet</Voce>
+    </Menu>
+    <Menu nome="funzioni" funzione="funzioni" forzaAbilitato="true">
+      
+	  	<Voce funzione="HSLstSoggetto" href="/soggetti/HSLstSoggetto?MTipo=L&amp;MPasso=2">Lista Soggetti</Voce>
+		<Voce funzione="HLstGiorno" href="/prenota/HLstGiorno?MPasso=2">Calendario</Voce>
+	  	
+		<Voce funzione="HLstTipoTrasporto" href="/prenota/HLstTipoTrasporto">Lista TRASPORTI</Voce>
+	  	
+	  	<Voce funzione="HSLstPrenoGiorno" href="/prenota/HSLstPrenoGiorno?MTipo=L&amp;MPasso=2">Lista Prenotazioni</Voce>
+	  	<Voce funzione="HSLstRagazzo" href="/prenota/HSLstRagazzo?MTipo=L&amp;MPasso=2">Lista ragazzi</Voce>
+	</Menu>  
+  </LstMenu>
+</DOCUMENTO>

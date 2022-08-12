@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="true" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Console appender -->
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="encoding" value="${cis.log4j.encoding}" />
+		<!-- Soglia per i msg sulla console -->
+		<param name="Threshold" value="${cis.log4j.console.threshold}" />
+		<!-- Pattern per i msg sulla console -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="${cis.log4j.conversion.pattern}" />
+		</layout>
+	</appender>
+
+	<!-- File con gli eventi più importanti -->
+	<appender name="ERRORFILE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="encoding" value="${cis.log4j.encoding}" />
+		<!-- Append=true per non troncare il file di log a 0 -->
+		<param name="Append" value="true" />
+		<!-- Il nome del file deve essere modificato a cura del gestore dell'applicazione -->
+		<param name="File" value="${BATCH_ERROR_FILE}" />
+		<!-- Il valore di soglia DEVE essere error ! NON modificarlo mai !!!! -->
+		<param name="Threshold" value="${cis.log4j.errorfile.threshold}" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="${cis.log4j.conversion.pattern}" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelMatchFilter">
+			<!-- anche gli update vanno a finire nel syslog -->
+			<param name="LevelToMatch" value="${cis.log4j.sqllog.level}" />
+			<param name="AcceptOnMatch" value="false" />
+		</filter>
+	</appender>
+
+	<!-- File per debugging con tutto dentro -->
+	<appender name="TRACEFILE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="encoding" value="${cis.log4j.encoding}" />
+		<!-- Append=true per non troncare il file di log a 0 -->
+		<param name="Append" value="true" />
+		<!-- Il nome del file deve essere modificato a cura del gestore dell'applicazione -->
+		<param name="File" value="${BATCH_TRACE_FILE}" />
+		<param name="Threshold" value="${cis.log4j.tracefile.threshold}" />
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="${cis.log4j.conversion.pattern}" />
+		</layout>
+		<!-- per evitare messaggi ripetuti nei logs -->
+		<!-- filter class="ciscoop.logging.NoRepeatFilter"> <param name="AcceptOnMatch" 
+			value="false"/> </filter -->
+	</appender>
+
+	<appender name="BATCH" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="encoding" value="${cis.log4j.encoding}" />
+		<param name="Append" value="true" />
+
+		<param name="File" value="${BATCH_LOG_FILE}" />
+		<param name="Threshold" value="${cis.log4j.batch.threshold}" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="${cis.log4j.conversion.pattern}" />
+		</layout>
+	</appender>
+
+	<!-- Logger riservato all'xml -->
+	<logger name="sm.ciscoop.xml" additivity="false">
+		<!-- Si può pilotare il logging dell'XML mettendo il level ai valori "off" 
+			(niente logging) o "all" (logging). Per ora non sono gestiti i level intermedi 
+			(e credo che non serva ...) La property 'additivity' è a false perchè altrimenti 
+			l'xml potrebbe finire anche in files degli appenders del logger "ciscoop" 
+			che ospita ad ex il syslog appender. -->
+		<level value="${cis.log4j.xml.threshold}" />
+		<appender-ref ref="TRACEFILE" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<logger name="sm.ciscoop.util.perf" additivity="false">
+		<!-- Si può pilotare il logging delle performances mettendo il level ai 
+			valori "off" (niente logging) o "all" (logging). Per ora non sono gestiti 
+			i level intermedi (e credo che non serva ...) La property 'additivity' è 
+			a false perchè altrimenti i msg potrebbero finire anche in files degli appenders 
+			del logger "ciscoop" che ospita ad ex il syslog appender. -->
+		<level value="${cis.log4j.perf.threshold}" />
+		<appender-ref ref="TRACEFILE" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<logger name="sm.ciscoop.${cis.appl.context}" additivity="true">
+		<level value="${cis.log4j.batch.threshold}" />
+		<appender-ref ref="BATCH" />
+		<appender-ref ref="ERRORFILE" />
+	</logger>
+
+	<!-- logger per le info critiche -->
+	<logger name="sm.ciscoop">
+		<level value="${cis.log4j.cis.threshold}" />
+		<!-- il level deve essere SEMPRE 'all' !!! -->
+		<appender-ref ref="ERRORFILE" />
+	</logger>
+
+	<root>
+		<!-- Pilotare il logging tramite il valore di 'level' -->
+		<level value="${cis.log4j.root.threshold}" />
+		<appender-ref ref="TRACEFILE" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+</log4j:configuration>

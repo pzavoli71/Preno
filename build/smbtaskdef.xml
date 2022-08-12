@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="smbtasks">
+	
+	<!-- home di m2 -->
+	<property name="m2.home" value="${user.home}/.m2/repository/"/>
+
+	<property name="smbtask.lib"   value="${m2.home}/sm/ciscoop/smbtask/2.0/smbtask-2.0.jar" />
+	<property name="jcifs.lib"     value="${m2.home}/jcifs/jcifs/1.3.17/jcifs-1.3.17.jar" />
+	<property name="stdcore.lib"   value="${m2.home}/sm/ciscoop/stdcore/2.0/stdcore-2.0.jar" />
+	
+	<taskdef onerror="ignore" name="smbcopy" classname="sm.ciscoop.ant.SmbCopyTask">
+	  <classpath>
+      <path location="${smbtask.lib}" />
+      <path location="${jcifs.lib}" />
+      <path location="${stdcore.lib}" />
+	  </classpath>
+	</taskdef>
+	<taskdef onerror="ignore" name="smbdelete" classname="sm.ciscoop.ant.SmbDeleteTask">
+	  <classpath>
+      <path location="${smbtask.lib}" />
+      <path location="${jcifs.lib}" />
+      <path location="${stdcore.lib}" />
+	  </classpath>
+	</taskdef>
+	<taskdef onerror="ignore" name="smbrename"  
+		classname="sm.ciscoop.ant.SmbRenameTask">
+	  <classpath>
+      <path location="${smbtask.lib}" />
+      <path location="${jcifs.lib}" />
+      <path location="${stdcore.lib}" />
+	  </classpath>
+	</taskdef>
+</project>

@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+:root {
+	--colore1: #032536; /* Navigatore, nomeutente background, bottonecomando*/
+	--colore2: #113C51; /* Header, navigatore hover, comandi hover */
+	--colore3: #27556C; /* sfondo, nomeutente */
+	--coloreIntesta: #032536; /* th tabelle, titolorelaz*/
+	--coloreMeta: #477286; /* Tab, rigapari*/
+	--coloresfondi: rgba(220, 220, 220, 1); /* rigadispari, bordi divs*/
+}
+td.open {
+    transition: all 0.2s;
+    opacity: 1;
+    line-height:1.5em;
+    /*font-size:8pt;*/
+    border-bottom:2px solid black;	
+}
+td.closed {
+    transition: all 0.2s;
+    opacity: 0;
+    line-height:0px;
+    font-size:0;	
+}
+td.closed div {
+    display: none;
+}

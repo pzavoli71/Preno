@@ -1,0 +1,277 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>sm.ciscoop</groupId>
+    <artifactId>std4pomapp</artifactId>
+    <version>4.7.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>preno</artifactId>
+  <packaging>${cis.maven.packaging}</packaging>
+  <name>${project.artifactId}</name>
+  <version>1.0</version>
+  <dependencies>
+    <!-- dependency>
+      <groupId>sm.ciscoop</groupId>
+      <artifactId>std4commons</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency-->
+		<dependency>
+			<groupId>sm.ciscoop</groupId>
+			<artifactId>std4web</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>sm.ciscoop</groupId>
+			<artifactId>stdreport</artifactId>
+			<version>${cis.stdreport.version}</version>
+		</dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-coyote</artifactId>
+      <version>8.5.34</version>
+      <scope>provided</scope>
+    </dependency>
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+	<!-- dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>8.0.21</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.postgresql</groupId>
+	    <artifactId>postgresql</artifactId>
+	    <version>42.4.1</version>
+	</dependency-->	    
+  </dependencies>
+  <properties>
+    <cis.appl.context>preno</cis.appl.context>
+    <cis.appl.mainpackage>preno</cis.appl.mainpackage>
+    <cis.appl.description>Prenotazione trasporto ragazzi 2008</cis.appl.description>
+    <cis.appl.display.name>Prenotiamo</cis.appl.display.name>
+    <cis.appl.idapplicativo>67</cis.appl.idapplicativo>
+    <cis.appl.idservizio.internet>
+    </cis.appl.idservizio.internet>
+    <cis.appl.idservizio.intranet>
+    </cis.appl.idservizio.intranet>
+    <cis.appl.idruoli.amministratore>
+    </cis.appl.idruoli.amministratore>
+    <cis.appl.idruoli.simulazione>
+    </cis.appl.idruoli.simulazione>
+    <cis.appl.audit.enabled>false</cis.appl.audit.enabled>
+    <cis.appl.batch.std.registration>false</cis.appl.batch.std.registration>
+    <cis.std.db.host>${cis.const.db.host.elrond}</cis.std.db.host>
+    <cis.std.db.service>${cis.const.db.port.elrond}</cis.std.db.service>
+  </properties>
+  <profiles>
+    <profile>
+      <id>localhost</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <cis.backup.profiledir>localhost</cis.backup.profiledir>
+        <cis.std.wsportalepa.url>${cis.const.wsportalepa.intranet.url}</cis.std.wsportalepa.url>
+        <cis.std.sviluppo>true</cis.std.sviluppo>
+        <cis.std.debug.project>true</cis.std.debug.project>
+        <cis.std.isapp.portale>false</cis.std.isapp.portale>
+        <cis.std.nonguardare.zutente>false</cis.std.nonguardare.zutente>
+        <cis.contextxml.antiresourcelocking>false</cis.contextxml.antiresourcelocking>
+        <cis.contextxml.cachingallowed>false</cis.contextxml.cachingallowed>
+        <cis.contextxml.reloadable>false</cis.contextxml.reloadable>
+        <!-- Servono solo in caso di deploy su localhost con plugin. Deve essere uno degli id dei server presenti in .m2\settings.xml -->
+        <cis.deploy.settings.serverid>localhost7</cis.deploy.settings.serverid>
+        <cis.deploy.host>${cis.const.db.host.elrond}</cis.deploy.host>
+        <cis.index.logon.url>abilitazione/HLogon</cis.index.logon.url>
+      </properties>
+    </profile>
+    <profile>
+      <id>esterno</id>
+      <properties>
+        <cis.backup.profiledir>localhost</cis.backup.profiledir>
+        <cis.std.wsportalepa.url>${cis.const.wsportalepa.intranet.url}</cis.std.wsportalepa.url>
+        <cis.std.sviluppo>true</cis.std.sviluppo>
+        <cis.std.debug.project>true</cis.std.debug.project>
+        <cis.std.isapp.portale>false</cis.std.isapp.portale>
+        <cis.std.nonguardare.zutente>false</cis.std.nonguardare.zutente>
+        <cis.contextxml.antiresourcelocking>false</cis.contextxml.antiresourcelocking>
+        <cis.contextxml.cachingallowed>false</cis.contextxml.cachingallowed>
+        <cis.contextxml.reloadable>false</cis.contextxml.reloadable>
+        <!-- Servono solo in caso di deploy su localhost con plugin. Deve essere uno degli id dei server presenti in .m2\settings.xml -->
+        <cis.deploy.settings.serverid>localhost7</cis.deploy.settings.serverid>
+        <cis.deploy.host>localhost</cis.deploy.host>
+        <cis.index.logon.url>abilitazione/HLogon</cis.index.logon.url>
+        <cis.std.db.host>localhost</cis.std.db.host>
+        <cis.std.db.service>1433</cis.std.db.service>
+	    <!-- cis.std.db.host>${cis.const.db.host.elrond}</cis.std.db.host>
+    	<cis.std.db.service>${cis.const.db.port.elrond}</cis.std.db.service-->
+      </properties>
+    </profile>
+    <profile>
+      <id>localhost-portale</id>
+      <properties>
+        <cis.backup.profiledir>localhost</cis.backup.profiledir>
+        <cis.std.wsportalepa.url>${cis.const.wsportalepa.intranet.url}</cis.std.wsportalepa.url>
+        <cis.std.sviluppo>true</cis.std.sviluppo>
+        <cis.std.debug.project>true</cis.std.debug.project>
+        <cis.std.isapp.portale>true</cis.std.isapp.portale>
+        <cis.std.nonguardare.zutente>true</cis.std.nonguardare.zutente>
+        <cis.contextxml.antiresourcelocking>false</cis.contextxml.antiresourcelocking>
+        <cis.contextxml.cachingallowed>false</cis.contextxml.cachingallowed>
+        <cis.contextxml.reloadable>false</cis.contextxml.reloadable>
+        <!-- Servono solo in caso di deploy su localhost con plugin. Deve essere uno degli id dei server presenti in .m2\settings.xml -->
+        <cis.deploy.settings.serverid>localhost7</cis.deploy.settings.serverid>
+        <cis.deploy.host>localhost</cis.deploy.host>
+      </properties>
+    </profile>
+    <profile>
+      <id>localhost-portale-test</id>
+      <properties>
+        <cis.backup.profiledir>localhost</cis.backup.profiledir>
+        <cis.std.wsportalepa.url>${cis.const.wsportalepa.intranet.url}</cis.std.wsportalepa.url>
+        <cis.std.db.host>localhost</cis.std.db.host>
+        <cis.std.sviluppo>true</cis.std.sviluppo>
+        <cis.std.debug.project>true</cis.std.debug.project>
+        <cis.std.isapp.portale>true</cis.std.isapp.portale>
+        <cis.std.nonguardare.zutente>true</cis.std.nonguardare.zutente>
+        <cis.contextxml.antiresourcelocking>false</cis.contextxml.antiresourcelocking>
+        <cis.contextxml.cachingallowed>false</cis.contextxml.cachingallowed>
+        <cis.contextxml.reloadable>false</cis.contextxml.reloadable>
+        <!-- Servono solo in caso di deploy su localhost con plugin. Deve essere uno degli id dei server presenti in .m2\settings.xml -->
+        <cis.deploy.settings.serverid>localhost7</cis.deploy.settings.serverid>
+        <cis.deploy.host>localhost</cis.deploy.host>
+      </properties>
+    </profile>
+    <profile>
+      <id>portale-intranet</id>
+      <properties>
+        <!-- INSERIRE QUI IL NOME DEL SERVER CHE SI DEVE TROVARE NEL FILE settings.xml
+					di maven -->
+        <!-- serve unicamente per trovare utente e password per il deploy sulla
+					macchina host -->
+        <cis.deploy.settings.serverid>tomcatdeploy</cis.deploy.settings.serverid>
+        <cis.backup.profiledir>intranet</cis.backup.profiledir>
+        <cis.std.wsportalepa.url>${cis.const.wsportalepa.intranet.url}</cis.std.wsportalepa.url>
+        <cis.deploy.host>${cis.const.server.intranet.tomcat03}</cis.deploy.host>
+        <cis.war.source.excludes>**/*.bak</cis.war.source.excludes>
+        <cis.war.packaging.excludes>WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/batch/**,
+					WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/conv/**,
+					WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/hic/abilitazione/HLogon.class</cis.war.packaging.excludes>
+      </properties>
+    </profile>
+    <profile>
+      <id>portale-internet</id>
+      <properties>
+        <!-- INSERIRE QUI IL NOME DEL SERVER CHE SI DEVE TROVARE NEL FILE settings.xml
+					di maven -->
+        <!-- serve unicamente per trovare utente e password per il deploy sulla
+					macchina host -->
+        <cis.deploy.settings.serverid>tomcatdeploy</cis.deploy.settings.serverid>
+        <cis.backup.profiledir>internet</cis.backup.profiledir>
+        <cis.std.wsportalepa.url>${cis.const.wsportalepa.internet.url}</cis.std.wsportalepa.url>
+        <cis.deploy.host>${cis.const.server.internet.tomcat04}</cis.deploy.host>
+        <cis.war.source.excludes>**/*.bak</cis.war.source.excludes>
+        <cis.war.packaging.excludes>WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/batch/**,
+					WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/conv/**,
+					WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/hic/abilitazione/HLogon.class</cis.war.packaging.excludes>
+      </properties>
+    </profile>
+    <profile>
+      <id>cluster-portale-intranet</id>
+      <properties>
+        <cis.backup.profiledir>intra-cluster</cis.backup.profiledir>
+        <cis.std.wsportalepa.url>${cis.const.wsportalepa.intranet.url}</cis.std.wsportalepa.url>
+        <!-- Verificare di avere ssh-repo dentro .m2/settings.xml -->
+        <cis.wagon.settings.serverid>ssh_repo</cis.wagon.settings.serverid>
+        <cis.wagon.protocol>scp</cis.wagon.protocol>
+        <cis.wagon.host>${cis.const.server.intranet.tomcat10}</cis.wagon.host>
+        <cis.wagon.location>/opt/war-listen</cis.wagon.location>
+        <cis.war.source.excludes>**/*.bak</cis.war.source.excludes>
+        <cis.war.packaging.excludes>WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/batch/**,
+					WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/conv/**,
+					WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/hic/abilitazione/HLogon.class</cis.war.packaging.excludes>
+        <cis.webxml.distributable>&lt;distributable /&gt;</cis.webxml.distributable>
+      </properties>
+    </profile>
+    <profile>
+      <id>cluster-portale-internet</id>
+      <properties>
+        <cis.backup.profiledir>inter-cluster</cis.backup.profiledir>
+        <cis.std.wsportalepa.url>${cis.const.wsportalepa.internet.url}</cis.std.wsportalepa.url>
+        <!-- Verificare di avere ssh-repo dentro .m2/settings.xml -->
+        <cis.wagon.settings.serverid>ssh_repo</cis.wagon.settings.serverid>
+        <cis.wagon.protocol>scp</cis.wagon.protocol>
+        <cis.wagon.host>${cis.const.server.internet.tomcat10}</cis.wagon.host>
+        <cis.wagon.location>/opt/war-listen</cis.wagon.location>
+        <cis.war.source.excludes>**/*.bak</cis.war.source.excludes>
+        <cis.war.packaging.excludes>WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/batch/**,
+					WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/conv/**,
+					WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/hic/abilitazione/HLogon.class</cis.war.packaging.excludes>
+        <cis.webxml.distributable>&lt;distributable /&gt;</cis.webxml.distributable>
+      </properties>
+    </profile>
+    <profile>
+      <id>intranet-noportale</id>
+      <properties>
+        <cis.std.isapp.portale>false</cis.std.isapp.portale>
+        <cis.std.nonguardare.zutente>false</cis.std.nonguardare.zutente>
+        <cis.deploy.settings.serverid>tomcatdeploy</cis.deploy.settings.serverid>
+        <cis.backup.profiledir>intranet</cis.backup.profiledir>
+        <cis.std.wsportalepa.url>${cis.const.wsportalepa.intranet.url}</cis.std.wsportalepa.url>
+        <cis.deploy.host>tomcat00.ciscoop.cis</cis.deploy.host>
+        <cis.war.source.excludes>**/*.bak</cis.war.source.excludes>
+        <cis.war.packaging.excludes>WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/batch/**,
+					WEB-INF/classes/sm/ciscoop/${cis.appl.mainpackage}/conv/**
+				</cis.war.packaging.excludes>
+        <cis.index.logon.url>abilitazione/HLogon</cis.index.logon.url>
+      </properties>
+    </profile>
+    <profile>
+      <id>batch</id>
+      <properties>
+        <!-- Profilo comune a tutti i batch, viene eseguito durante il lancio
+					con buildBatch.xml -->
+        <!-- <cis.std.sviluppo>prova!!</cis.std.sviluppo> -->
+      </properties>
+    </profile>
+    <profile>
+      <id>custom-war</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <configuration>
+              <artifactItems combine.children="append">
+                <artifactItem>
+                  <groupId>sm.ciscoop.fonts</groupId>
+                  <artifactId>commons</artifactId>
+                  <version>1.0.0-SNAPSHOT</version>
+                  <type>zip</type>
+                  <outputDirectory>${cis.war.app.resources.dir}/stampe</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>sm.ciscoop.themes</groupId>
+                  <artifactId>atlanta</artifactId>
+                  <version>1.1.0-SNAPSHOT</version>
+                  <type>zip</type>
+                  <outputDirectory>${cis.war.app.themes.dir}/atlanta-1.1.0-SNAPSHOT</outputDirectory>
+                </artifactItem>
+              </artifactItems>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+  <!-- INFO PER IL BUILD -->
+  <build>
+    <finalName>${cis.appl.context}</finalName>
+    <plugins>
+      <!-- Mettere qui i plugin che fanno override di quelli standard a livello
+				di applicativo oppure dentro il profilo se plugin specifici di una particolare
+				build -->
+    </plugins>
+  </build>
+</project>

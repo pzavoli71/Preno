@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+/* ===========================================
+      CSS delle Pagine d'errore del CIS
+   =========================================== */
+
+/** Pagina 404  */   
+
+/* html, body { */
+/* 	font-family: Verdana, Arial, Helvetica, sans-serif; */
+/* 	font-size: 10px; */
+/* } */
+
+/* body { */
+/*   background-color: rgba(255, 255, 255, 0.2); */
+/*   min-height: 400px; */
+/*   background: url("../images/grey_paper.jpg") repeat scroll 0 0 transparent; */
+/* } */
+
+* {
+	box-sizing:border-box;
+}
+html {
+	height:100%;
+}
+body {
+	font-family: opensans, Verdana, Helvetica, sans-serif;
+	margin:0 10%;
+	color:#333;
+	font-size:14px;
+	display:flex;
+	align-items:center;
+	flex-direction:column;
+	background:white;
+	height: 100%;
+}
+
+.appName {
+	margin-bottom: 15px;
+    text-align: center;
+    outline: none;
+	font-size: 3em;
+    font-style: normal;
+    font-weight: bold;
+    text-shadow: 0px 0px 8px #aaaaaa;
+}
+.appDesc {
+	margin-bottom: 15px;
+    text-align: center;
+    outline: none;
+    font-style: italic;
+    font-weight: bold;
+}
+.container {
+	margin:auto;
+}
+
+.pageuri {
+  color: #992424;
+  font-size: 1em;
+}
+
+.cis-errpage-centered {
+	text-align: center; 
+	margin: 0px;
+}
+
+.cis-errpage-main {
+	text-align: center;
+	margin: 1px auto;
+	width: 500px;
+	padding: 0px 50px;
+}
+
+.cis-error-img404 {
+	width: 500px;
+	display: block;
+}
+
+.cis-errpage-bold {
+	font-weight: bold;
+}
+
+/** Page Generic  */
+
+.cis-errpage-panel {
+  margin: 2px auto; 
+  text-align: center; 
+  width: 600px;
+  font-size: 20px; 
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgba(220, 220, 220, 0.6); 
+  border: 1px solid #ababab;
+  color: #9E5219;
+  font-weight: bold;
+  xtext-shadow: 0px 0px 3px #9a9a9a;
+ }
+ 
+.cis-errpage-redirect {
+  font-size: 14px; 
+  margin-top: 20px;
+  text-shadow: none;
+}
+
+/** Pagina Stampa */
+
+.cis-errpage-tabreport {
+  margin-left: 3%;
+  padding: 2px;
+  border-collapse: separate;
+  border-spacing: 10px;
+}
+
+.cis-errpage-tabreport tr td:first-child {
+	white-space:nowrap
+}
+
+/** Pagina Trasformazione */
+
+.cis-errpage-detail {
+   font-size: 13px; 
+   text-shadow: none;
+}
+
+.cis-errpage-stperr {
+	color: #AA0000;
+}

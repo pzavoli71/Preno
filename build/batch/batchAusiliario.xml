@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir=".." default="noManual" name="File ant ausiliario di buildBatch.xml">
+	<description>Build file per:
+	      Ricreare i batch
+	      Compilare le classi
+	      Creare il jar del batch</description>
+	<!--
+ server.share.ciscoop -> server scelto e share ciscoop
+	     server.deploy.path   -> directory relativa a server.share.ciscoop di dove copiare il jar del batch
+	      N.B.: sulle macchine batch è sempre presente una SHARE c:\ciscoop la directory è relativa a quella posizione 
+	-->
+	<property name="share.ciscoop" value="ciscoop"/>
+	<property name="server.share.ciscoop" value="${serverScelto}/${share.ciscoop}"/>
+	<property name="server.deploy.path" value="${appl}/${batchScelto.main.class}"/>
+	<property name="server.user" value="administrator"/>
+	<property name="server.password" value="C234D169132584C67FF4F0C8DD5E2B08D0049A08DAE803C05F4E54576598CFB6236736E2573851286ADBE2BB78AD1A75B59051CF6509BF86BE5A1B16EA7976283FD03538D3562CB9B6C13A4F18A28B63744FEA929E4169C470FE8A87F74D1CDBF121A6563B7A28135FA5BB2058789B1BB1E6B3ECFF28544489C3EEF97257D1E5"/>
+	<!-- property della directory dove costruire il batch sotto target -->
+	<property name="target.batchScelto.home" value="${target.home}/batch/${batchScelto.main.class}"/>
+	<!-- dove copiare tutte le lib da includere dentro il JAR -->
+	<property name="target.batchScelto.libs" value="${target.batchScelto.home}/lib"/>
+	<!-- Nome del JAR che verrà creato -->
+	<property name="batchScelto.jar.name" value="${batchScelto.lowercase}.jar"/>
+	<!-- Nome del CMD che lancia il batch -->
+	<property name="batchScelto.cmd.name" value="${batchScelto.lowercase}.cmd"/>
+	<!-- Patch completo che punta al JAR creato -->
+	<property name="batchScelto.path.jar" value="${target.batchScelto.home}/${batchScelto.jar.name}"/>
+	<property name="batchScelto.backup.home" value="${backup.home}/batch/${batchScelto.main.class}"/>
+	<target name="noManual">
+		<echo>Non puoi lanciare questo build file a mano! Lanciare lanciaBuildBatch.xml</echo>
+	</target>
+	<target name="make" depends="create.jar, delete.lib, find.cmd, copy.cmd, create.cmd, deployBatch"/>
+	<target name="copia.lib.batch" depends="copia.lib.custom.esterne">
+		<copy todir="${target.batchScelto.libs}">
+			<fileset dir="${target.project.libs}">
+				<patternset refid="commons.librerie.batch"/>
+				<patternset refid="librerie.custom"/>
+			</fileset>
+		</copy>
+	</target>
+	<target name="create.batch.dir">
+		<mkdir dir="${target.batchScelto.home}"/>
+		<mkdir dir="${extra.home}"/>
+		<mkdir dir="${backup.home}"/>
+		<mkdir dir="${backup.home}/batch"/>
+		<mkdir dir="${batchScelto.backup.home}"/>
+	</target>
+	<patternset id="services">
+		<include name="META-INF/*/*"/>
+	</patternset>
+	<patternset id="classi.batch">
+		<!-- batch - classi + risorse -->
+		<include name="sm/ciscoop/${appl}/batch/${batchScelto.package.name}/**"/>
+		
+		<!-- classi -->
+		<include name="sm/ciscoop/${appl}/batch/*.class"/>
+		<include name="sm/ciscoop/${appl}/enumerati/**/*.class"/>
+		<include name="sm/ciscoop/${appl}/pdc/**/*.class"/>
+		<include name="sm/ciscoop/${appl}/utils/**/**.class"/>
+		<include name="sm/ciscoop/${appl}/util/**/**.class"/>
+		
+		<!-- risorse -->
+		<include name="sm/ciscoop/${appl}/mail/**"/>
+		<include name="sm/ciscoop/${appl}/*.properties"/>
+		<include name="sm/ciscoop/${appl}/batch/log4j.xml"/>
+		<include name="sm/ciscoop/${appl}/batch/batch.properties"/>
+	</patternset>
+	<target name="create.jar" depends="create.batch.dir, copia.lib.batch">
+		<echo>Cancello il vecchio jar: ${batchScelto.path.jar}</echo>
+		<delete failonerror="false" file="${batchScelto.path.jar}"/>
+		<echo>Preparazione alla creazione del JAR: ${batchScelto.jar.name}</echo>
+		<echo message="target.project.classes = ${target.project.classes}"/>
+		<one-jar destfile="${batchScelto.path.jar}">
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0"/>
+				<attribute name="Built-By" value="${user.name}"/>
+				<attribute name="One-Jar-Main-Class" value="${batchScelto}"/>
+				<attribute name="Class-Path" value="main.jar"/>
+			</manifest>
+			<main>
+				<fileset dir="${target.project.classes}">
+					<patternset refid="classi.custom"/>
+					<patternset refid="classi.batch"/>
+					<patternset refid="services"/>
+				</fileset>
+			</main>
+			<lib>
+				<fileset dir="${target.batchScelto.libs}">
+					<include name="**/*.*"/>
+				</fileset>
+			</lib>
+			<fileset dir="${target.project.classes}">
+				<patternset refid="resource.custom"/>
+			</fileset>
+		</one-jar>
+	</target>
+	<target name="delete.lib">
+		<echo>Cancello la directory lib: ${target.batchScelto.libs}</echo>
+		<delete failonerror="false" dir="${target.batchScelto.libs}"/>
+	</target>
+	<target name="deployBatch" if="batchDeploy">
+		<move file="${batchScelto.backup.home}/${batchScelto.jar.name}" tofile="${batchScelto.backup.home}/${batchScelto.jar.name}.${time.stamp}" failonerror="false"/>
+		<copy todir="${batchScelto.backup.home}">
+			<fileset dir="${target.batchScelto.home}">
+				<include name="${batchScelto.jar.name}"/>
+			</fileset>
+		</copy>
+		<echo>Prima cancello il vecchio backup del batch</echo>
+		<smbdelete share="${server.share.ciscoop}" verbose="true" user="${server.user}" passenc="${server.password}" file="${server.deploy.path}/${batchScelto.jar.name}.old"/>
+		<echo>Poi rinomino il vecchio batch</echo>
+		<smbrename share="${server.share.ciscoop}" verbose="true" user="${server.user}" passenc="${server.password}" file="${server.deploy.path}/${batchScelto.jar.name}" tofile="${server.deploy.path}/${batchScelto.jar.name}.old"/>
+		<echo>copio sul server</echo>
+		<smbcopy share="${server.share.ciscoop}" verbose="true" user="${server.user}" passenc="${server.password}" todir="${server.deploy.path}">
+			<fileset dir="${target.batchScelto.home}">
+				<include name="${batchScelto.jar.name}"/>
+				<include name="${batchScelto.cmd.name}"/>
+			</fileset>
+		</smbcopy>
+	</target>
+	<target name="create.cmd" unless="batch_cmds.found">
+		<tstamp>
+			<format property="batch.now" pattern="yyyy-MM-dd HH:mm:ss" locale="it,IT"/>
+		</tstamp>
+		<echo>Creazione del file cmd: ${batchScelto.lowercase}.cmd</echo>
+		<echo file="${target.batchScelto.home}/${batchScelto.lowercase}.cmd" append="false">
+			<![CDATA[
+@echo off
+REM lancio batch ${batchScelto.lowercase}
+REM data dell'ultimo deploy:  ${batch.now} 
+echo %DATE% %TIME% lancio batch ${batchScelto.lowercase} > lastrun.log
+java -jar ${batchScelto.jar.name} -e %1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14 %15 %16 %17 %18 %19 %20 >> lastrun.log 2>>&1
+echo %DATE% %TIME% fine batch ${batchScelto.lowercase} >> lastrun.log
+			]]>
+		</echo>
+	</target>
+	<target name="copy.cmd" if="batch_cmds.found">
+		<echo>Copia dei .cmd trovati</echo>
+		<copy todir="${target.batchScelto.home}">
+			<fileset refid="batch_cmds"/>
+		</copy>
+	</target>
+	<target name="find.cmd">
+		<fileset id="batch_cmds" dir="${target.batchScelto.home}" includes="*.cmd"/>
+		<condition property="batch_cmds.found">
+			<resourcecount when="greater" count="0">
+				<fileset refid="batch_cmds"/>
+			</resourcecount>
+		</condition>
+	</target>
+	<!-- librerie comuni a tutti batch -->
+	<patternset id="commons.librerie.batch">
+		<include name="std4core*.jar"/>
+		<include name="std4pdc*.jar"/>
+		<include name="crypto-*.jar"/>
+		<include name="db-*.jar"/>
+		<include name="baseutils-*.jar"/>
+		<include name="net-*.jar"/>
+		<include name="mail-*.jar"/>
+	
+		<include name="xom-*.jar"/>
+		<include name="tika-core-*.jar"/>
+		<include name="log4j-1.2.*.jar"/>
+		<include name="commons-dbcp-*.jar"/>
+		<include name="commons-pool-*.jar"/>
+		<include name="commons-io-*.jar"/>
+		<include name="jtds-1.3.*.jar"/>
+		<include name="informix-2.21.jar"/>
+		<include name="javax.mail-1.6*.jar"/>
+		<include name="Saxon-*.jar"/>
+	</patternset>
+	<target name="copia.lib.custom.esterne"/>
+	<patternset id="librerie.custom">
+		<include name="empty.placeholder"/>
+	</patternset>
+	<patternset id="classi.custom">
+		<include name="empty.placeholder"/>
+	</patternset>
+	<patternset id="resource.custom">
+		<include name="empty.placeholder"/>
+	</patternset>
+</project>

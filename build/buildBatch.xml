@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir=".." default="compilaBatch" name="buildBatch">
+	<description>Ricreare i batch
+      Compilare le classi
+      Creare il jar del batch</description>
+	<property name="sceltaServer" value="batch2019.dmz-cis.pa.cis"/>
+	<import file="vars.xml"/>
+	<!-- DEFINISCO PROPRIETA' e TASK di ONE-JAR -->
+	<property name="one-jar.version" value="0.97"/>
+	<property name="one-jar.dist.dir" value="${m2.home}/org/apache/ant/com/simontuffs/one-jar-ant-task/${one-jar.version}"/>
+	<property name="one-jar.ant.jar" value="${one-jar.dist.dir}/one-jar-ant-task-${one-jar.version}.jar"/>
+	<taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" classpath="${one-jar.ant.jar}" onerror="report"/>
+	<target name="echotest" description="target per test">
+		<echo>build.lib.home = ${build.lib.home}</echo>
+	</target>
+	<!-- ===============================================================================  -->
+	<!--  Sezione compilazione e deploy batch  -->
+	<!-- ===============================================================================  -->
+	<target name="compilaBatch" description="Prova di una form con style sheet per i batch" depends="leggiElencoBatch">
+		<antform stylesheet="${build.home}/style.antform">
+			<label>Scegli quale opzione desideri</label>
+			<booleanProperty property="batchDeploy" label="Fare anche il deploy del batch?"/>
+			<!--
+ <booleanProperty property="seRebuildWar" label="Rebuild di ${appl}?"/> 
+			-->
+			<selectionProperty label="Scegli il server: " property="serverScelto" values="${sceltaServer}" tooltip="Server su cui fare il deploy"/>
+			<selectionProperty label="Scegli il batch: " property="batchScelto" values="${sceltaBatch}" tooltip="Batch da compilare"/>
+			<buttonbar>
+				<button label="Annulla" target="esci"/>
+				<button label="Costruisci" target="condBuild"/>
+			</buttonbar>
+			<controlbar/>
+		</antform>
+	</target>
+	<!--
+        Il meccanismo dei batch permette l'override di certi comportamenti nel caso si specifichi un file chiamato
+	     come ${classeBatchScelto.lowercase}.xml. Quindi se il file esiste oppure no genera due lanci differenti
+	-->
+	<target name="checkFileSpec">
+		<echo>check esistenza ${build.batch}/${batchScelto.lowercase}.xml</echo>
+		<available file="${build.batch}/${batchScelto.lowercase}.xml" property="fileSpec.present"/>
+	</target>
+	<target name="lowerCase">
+		<getLastPart string="${batchScelto}" separator="." to="batchScelto.main.class"/>
+		<lower string="${batchScelto.main.class}" to="batchScelto.lowercase"/>
+		<removeLastPart string="${batchScelto}" separator="." to="batchScelto.package"/>
+		<getLastPart string="${batchScelto.package}" separator="." to="batchScelto.package.name"/>
+		<lower string="${batchScelto.package.name}" to="batchScelto.package.name.lowercase"/>
+		<echo>batchScelto = ${batchScelto}</echo>
+		<echo>batchScelto.lowercase = ${batchScelto.lowercase}</echo>
+		<echo>batchScelto.main.class = ${batchScelto.main.class}</echo>
+		<echo>batchScelto.package = ${batchScelto.package}</echo>
+		<echo>batchScelto.package.name = ${batchScelto.package.name}</echo>
+		<echo>batchScelto.package.name.lowercase = ${batchScelto.package.name.lowercase}</echo>
+	</target>
+	<target name="condBuild" depends="lowerCase, checkFileSpec, buildBatchSpec, buildBatchAux"/>
+	<target name="esci">
+		<echo>Non faccio NULLA !!!</echo>
+	</target>
+	<target name="buildBatchAux" depends="mavenPackage" unless="fileSpec.present">
+		<echo>batchScelto: ${batchScelto}</echo>
+		<echo>file di configurazione specifico NON trovato!!: ${build.batch}/${batchScelto.lowercase}.xml</echo>
+		<ant antfile="${build.batch}/batchAusiliario.xml" dir="${project.home}" target="make" inheritall="true" inheritrefs="true"/>
+	</target>
+	<target name="buildBatchSpec" depends="mavenPackage" if="fileSpec.present">
+		<echo>batchScelto: ${batchScelto}</echo>
+		<echo>file di configurazione specifico TROVATO!!: ${build.batch}/${batchScelto.lowercase}.xml</echo>
+		<ant antfile="${build.batch}/${batchScelto.lowercase}.xml" dir="${project.home}" target="make" inheritall="true" inheritrefs="true"/>
+	</target>
+	
+	<target name="mavenPackage">
+		<echo>lancio di MAVEN per BATCH: basedir=${build.deploy}/${appl}</echo>
+
+		<!-- copia del progetto -->
+		<delete failonerror="false" dir="${build.deploy}/${appl}" />
+
+		<copy todir="${build.deploy}/${appl}" failonerror="true">
+			<fileset dir="${basedir}">
+				<include name="src/**/*"/>
+			</fileset>
+			<file name="${basedir}/pom.xml">
+			</file>
+		</copy>
+
+		<maven basedir="${build.deploy}/${appl}" goal="clean package -P batch" resultproperty="maven.build.result"/>
+	</target>
+	
+	<target name="leggiElencoBatch">
+		<echo>Leggo l'elenco dei Batch dell'applicativo</echo>
+		<java classname="sm.ciscoop.batch.CreaElencoBatch" outputproperty="sceltaBatch">
+			<classpath>
+				<pathelement location="${m2.home}/sm/ciscoop/batch/elenca-batch/1.0-SNAPSHOT/elenca-batch-1.0-SNAPSHOT.jar"/>
+			</classpath>
+			<arg value="${basedir}/${mvn.java}/sm/ciscoop/${appl}/batch"/>
+			<arg value="${project.home}/${mvn.java}"/>
+		</java>
+		<echo>elenco scelta batch = ${sceltaBatch}</echo>
+	</target>
+</project>

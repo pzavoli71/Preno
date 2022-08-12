@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context privileged="${cis.contextxml.privileged}" 
+         reloadable="${cis.contextxml.reloadable}"
+         cachingAllowed="${cis.contextxml.cachingallowed}" 
+         antiResourceLocking="${cis.contextxml.antiresourcelocking}">
+
+</Context>

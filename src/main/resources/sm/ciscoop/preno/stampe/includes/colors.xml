@@ -1,0 +1,4 @@
+<colors>
+	<include src="stdcolors.xml" /> <!-- file presente in target -->
+</colors>
+    

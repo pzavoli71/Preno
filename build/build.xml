@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir=".." default="eseguiForm" name="${appl}">
+	<description>
+		Compilare le classi
+		Deploy applicativo
+	</description>
+
+	<import file="vars.xml" />
+
+	<target name="echotest" description="target per test">
+		<echo>build.lib.home = ${build.lib.home}</echo>
+	</target>
+
+	<!-- ===============================================================================  -->
+	<!--  Sezione compilazione e deploy batch  -->
+	<!-- ===============================================================================  -->
+	<target name="eseguiForm" description="Build form">
+		<property name="seMinimizzare" value="false" />
+
+		<antform stylesheet="${build.home}/style.antform">
+			<label>Scegli quale opzione desideri</label>
+
+
+			<radioSelectionProperty label="Fare il deploy?" property="h.deploy" values="nodeploy,deploy,redeploy" tooltip="Selezionare se fare il deploy oppure no" />
+			<booleanProperty property="h.minimizza" label="Minimizzazione CSS/JS?" />
+			<booleanProperty property="h.backup"    label="Fare il backup dell'artifact?" />
+
+			<radioSelectionProperty label="Profilo di destinazione " property="h.profilo.scelto" values="localhost,esterno" tooltip="Scegli il profilo di destinazione" />
+
+			<buttonbar>
+				<button label="Annulla" target="esci" />
+				<button label="Esegui" target="build" />
+			</buttonbar>
+			<controlbar />
+		</antform>
+	</target>
+
+
+	<target name="esci">
+		<echo>Non faccio NULLA !!!</echo>
+	</target>
+
+
+	<target name="build" depends="checkVars, buildMaven">
+
+	</target>
+
+
+	<target name="checkVars">
+		<condition property="seDeploy" value="true">
+			<or>
+				<equals arg1="${h.deploy}" arg2="deploy" casesensitive="false" />
+				<equals arg1="${h.deploy}" arg2="redeploy" casesensitive="false" />
+			</or>
+		</condition>
+		<condition property="seCluster" value="true">
+			<or>
+				<equals arg1="${h.profilo.scelto}" arg2="cluster-portale-intranet" casesensitive="false" />
+				<equals arg1="${h.profilo.scelto}" arg2="cluster-portale-internet" casesensitive="false" />
+			</or>
+		</condition>
+		
+		<condition property="goal" value="install -Dwagon.copy">
+			<and>
+				<istrue value="${seCluster}" />
+				<istrue value="${seDeploy}" />
+			</and>
+		</condition>
+		<condition property="goal" value="package">
+			<equals arg1="${h.deploy}" arg2="nodeploy" casesensitive="false" />
+		</condition>
+		<condition property="goal" value="tomcat7:deploy">
+			<equals arg1="${h.deploy}" arg2="deploy" casesensitive="false" />
+		</condition>
+		<condition property="goal" value="tomcat7:redeploy">
+			<equals arg1="${h.deploy}" arg2="redeploy" casesensitive="false" />
+		</condition>
+		
+		<echo>Minimizzare? ${seMinimizzare}</echo>
+		<condition property="conditional" value="-Pminimize-css-js">
+			<equals arg1="${seMinimizzare}" arg2="true" casesensitive="false" />
+		</condition>
+		<condition property="conditional" value="">
+			<equals arg1="${seMinimizzare}" arg2="false" casesensitive="false" />
+		</condition>
+
+		<property name="cis.deploy.path" value="-Dcis.deploy.path=${appl}##${time.stamp}" />
+
+		<!-- profili che vogliamo attivare sempre -->
+		<property name="always" value="-Pcustom-war -Pbackup-artifact" />
+
+		<!-- copia del progetto -->
+		<delete failonerror="false" dir="${build.deploy}/${appl}" />
+
+		<copy todir="${build.deploy}/${appl}" failonerror="true">
+			<fileset dir="${basedir}">
+				<include name="src/**/*"/>
+			</fileset>
+			<file name="${basedir}/pom.xml">
+			</file>
+		</copy>
+		
+		<echo>GOAL=${goal}</echo>
+		<echo>DEPLOY_PATH=${cis.deploy.path}</echo>
+		<echo>Profili maven da eseguire=${always} ${conditional}</echo>
+	</target>
+
+
+	<target name="buildMaven">
+		<if>
+			<equals arg1="${h.profilo.scelto}" arg2="portale-all" />
+			<then>
+				<echo>lancio di MAVEN: basedir=${build.deploy}/${appl}</echo>
+				<echo>comando: mvn clean ${goal} ${cis.deploy.path} ${always} ${conditional} -Pportale-intranet</echo>
+				<maven basedir="${build.deploy}/${appl}" goal="clean ${goal} ${cis.deploy.path} ${always} ${conditional} -Pportale-intranet" resultproperty="maven.build.result" />
+				<echo>comando: mvn clean ${goal} ${cis.deploy.path} ${always} ${conditional} -Pportale-internet</echo>
+				<maven basedir="${build.deploy}/${appl}" goal="clean ${goal} ${cis.deploy.path} ${always} ${conditional} -Pportale-internet" resultproperty="maven.build.result" />
+			</then>
+			<else>
+				<echo>lancio di MAVEN: basedir=${build.deploy}/${appl}</echo>
+				<echo>comando: mvn clean ${goal} ${cis.deploy.path} ${always} ${conditional} -P${h.profilo.scelto}</echo>
+				<maven basedir="${build.deploy}/${appl}" goal="clean ${goal} ${cis.deploy.path} ${always} ${conditional} -P${h.profilo.scelto}" resultproperty="maven.build.result" />
+			</else>
+		</if>
+	</target>
+</project>
+

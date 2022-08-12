@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="vars" basedir="..">
+	<description>Variabili per librerie e classpath utilizzati durante il build</description>
+	<!-- importa la variabile globale d'ambiente -->
+	<property environment="env" />
+
+	<property name="appl" value="preno" />
+	<property name="sviluppo.home" value="${basedir}/.." />
+	
+	<!-- home del proprio progetto -->
+	<property name="project.home" value="${basedir}"/>
+	<!-- path base dei files di configurazione di ant per il build dell'applicativo ed eventuali batch -->
+	<property name="build.home" value="${project.home}/build"/>
+	<!-- path della directory di lavoro dove maven deve creare i deploy -->
+	<property name="build.deploy" value="C:/temp/deploy"/>
+	<!-- path delle librerie di sistema, quelle vecchie non maven -->
+	<property name="lib.home" value="c:/java/libs"/>
+	<!-- path base delle librerie specifiche del progetto che non hanno un equivalente con maven -->
+	<property name="build.lib.home" value="${build.home}/lib"/>
+	<!-- path che contiene i file di configurazione di ant specifici per i singoli batch -->
+	<property name="build.batch" value="${build.home}/batch"/>
+	<!-- home di maven (presa dalle variabili d'ambiente) -->
+	<property name="maven.home" value="${env.MAVEN_HOME}"/>
+	<!-- home di m2 -->
+	<property name="m2.home" value="${user.home}/.m2/repository/"/>
+
+	
+	<property name="mvn.src" value="src"/>
+	<property name="mvn.main" value="${mvn.src}/main"/>
+	<property name="mvn.test" value="${mvn.src}/test"/>
+	
+	<property name="mvn.java" value="${mvn.main}/java"/>
+	<property name="mvn.test.java" value="${mvn.test}/java"/>
+	
+	<property name="mvn.resources" value="${mvn.main}/resources"/>
+	<property name="mvn.test.resources" value="${mvn.test}/resources"/>
+	<property name="mvn.webapp" value="${mvn.main}/webapp"/>
+	
+	<property name="extra.dir"      value="extra" />
+	<property name="extra.home"     value="${basedir}/${extra.dir}" />
+	<property name="backup.dir"     value="backup" />
+	<property name="backup.home"    value="${extra.home}/${backup.dir}" />
+	
+	<!-- cartella home dei risultati di compilazione di maven -->
+	<property name="target.home" value="${build.deploy}/${appl}/target"/>
+	
+	<!-- cartella di espansione del progetto sotto target in preparazione alla creazione del war -->
+	<property name="target.project" value="${target.home}/${appl}"/>
+	<property name="target.project.classes" value="${target.project}/WEB-INF/classes"/>
+	<property name="target.project.libs" value="${target.project}/WEB-INF/lib"/>
+	<!-- Importazione del task del ciscoop utilizzato per copiare file da remoto utilizzando SAMBA -->
+	<import file="${build.home}/smbtaskdef.xml"/>
+	<!-- Importazione dei task utilizzati per comunicare con tomcat per il deploy e per l'utilizzo di antform2.0 -->
+	<property name="antform.home" value="${m2.home}/org/apache/antform/2.0"/>
+	<taskdef resource="com/sardak/antform/taskdefs.properties" classpath="${antform.home}/antform-2.0.jar"/>
+	<property name="antcontrib.home" value="${m2.home}/org/apache/ant-contrib/1.0b3"/>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${antcontrib.home}/ant-contrib-1.0b3.jar" />
+	
+	<!-- Classpath utilizzato per compilare pass e i batch -->
+	<path id="project.class.path">
+		<pathelement location="${build.classes}"/>
+		<fileset dir="${java.home}/lib" includes="**/*.jar "/>
+		<fileset dir="${lib.home}/tomcat-7.0" includes="**/*.jar"/>
+		<fileset dir="${target.project.libs}" includes="**/*.jar "/>
+	</path>
+	<!--Patternset di esclusione file dal WAR-->
+	<patternset id="dest.exclude">
+		<exclude name="CVS/"/>
+		<exclude name="Temporary_Files/"/>
+		<exclude name="package cache/"/>
+		<exclude name="dependency cache/"/>
+		<exclude name="jsp cache/"/>
+		<exclude name="cache files/"/>
+	</patternset>
+	
+	<macrodef name="maven">
+		<attribute name="options" default=""/>
+		<attribute name="goal"/>
+		<attribute name="basedir"/>
+		<attribute name="resultproperty" default="maven.result"/>
+		<element name="args" implicit="true" optional="true"/>
+		<sequential>
+			<java classname="org.codehaus.classworlds.Launcher" fork="true" dir="@{basedir}" resultproperty="@{resultproperty}">
+				<jvmarg value="-Xmx512m"/>
+				<jvmarg value="-Dmaven.multiModuleProjectDirectory=${maven.home}"/>
+				<classpath>
+					<fileset dir="${maven.home}/boot">
+						<include name="*.jar"/>
+					</fileset>
+					<fileset dir="${maven.home}/lib">
+						<include name="*.jar"/>
+					</fileset>
+				</classpath>
+				<sysproperty key="classworlds.conf" value="${maven.home}/bin/m2.conf"/>
+				<sysproperty key="maven.home" value="${maven.home}"/>
+				<arg line="-e --batch-mode @{options} @{goal}"/>
+			</java>
+		</sequential>
+	</macrodef>
+	
+	<tstamp>
+		<format property="time.stamp" pattern="yyyyMMdd-HHmmss"/>
+	</tstamp>
+
+	<!-- Definiamo le funzioni Javascript per creare l'upper case, il lower case e il capitalize di una stringa -->
+	<scriptdef language="javascript" name="upper">
+		<attribute name="string" /> 
+		<attribute name="to" />
+
+		project.setProperty(attributes.get("to"), attributes.get("string").toUpperCase());
+	</scriptdef>
+
+	<scriptdef language="javascript" name="lower">
+		<attribute name="string" /> 
+		<attribute name="to" />
+
+		project.setProperty(attributes.get("to"), attributes.get("string").toLowerCase());
+	</scriptdef>
+
+	<scriptdef language="javascript" name="capitalize">
+		<attribute name="string" />
+		<attribute name="to" />
+		
+		var s = new String(attributes.get("string"));
+		project.setProperty(attributes.get("to"), s.toLowerCase().replace( /^.|\s\S/g, function(a) { return a.toUpperCase(); }) );
+	</scriptdef>
+	
+	<scriptdef language="javascript" name="getLastPart">
+		<attribute name="string" />
+		<attribute name="separator" />
+		<attribute name="to" />
+
+		var s = new String(attributes.get("string"));
+		var sep = new String(attributes.get("separator"));
+		var ret = s.split(sep).pop();
+		project.setProperty(attributes.get("to"), ret);
+	</scriptdef>
+	
+	<scriptdef language="javascript" name="removeLastPart">
+		<attribute name="string" />
+		<attribute name="separator" />
+		<attribute name="to" />
+
+		var s = new String(attributes.get("string"));
+		var sep = new String(attributes.get("separator"));
+		var sp = s.split(sep);
+		sp.pop();
+		var ret = sp.join(".");
+		project.setProperty(attributes.get("to"), ret);
+	</scriptdef>
+</project>
