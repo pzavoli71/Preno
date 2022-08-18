@@ -1,4 +1,4 @@
-activeProfiles=localhost-test,custom-war
+activeProfiles=localhost,custom-war
 eclipse.preferences.version=1
 resolveWorkspaceProjects=true
 version=1

@@ -36,6 +36,8 @@ import java.util.*;
 		[IdTpTrasporto] [int] DEFAULT 0 NOT NULL ,
 		[IdGiorno] [int] IDENTITY(1,1) ,
 		[DtGiorno] [DateTime] ,
+		[Destinazione] [VARCHAR](100) DEFAULT '' NOT NULL ,
+		[NotaGiorno] [VARCHAR](1000) DEFAULT '' NOT NULL ,
 		
 		[ultagg] [datetime] DEFAULT (getdate()) NOT NULL,
 		[utente] [varchar](20) DEFAULT '' NOT NULL,
@@ -85,6 +87,20 @@ public class Giorno extends AppPDC {
   public static final String CSZcol_NumGiorno = "NumGiorno";
   public static final String CSZds_NumGiorno = "Num Giorno";
   private IntAttr   c_NumGiorno;
+ 	
+  
+  /**  */
+  public static final String CSZcol_Destinazione = "Destinazione";
+  public static final String CSZds_Destinazione = "Destinazione";
+  public static final Integer CSZcol_Destinazione_len = 100;
+  private CharAttr  c_Destinazione;
+ 	
+  
+  /**  */
+  public static final String CSZcol_NotaGiorno = "NotaGiorno";
+  public static final String CSZds_NotaGiorno = "Nota Giorno";
+  public static final Integer CSZcol_NotaGiorno_len = 1000;
+  private CharAttr  c_NotaGiorno;
  	
   
   // =============================================================
@@ -214,8 +230,18 @@ public class Giorno extends AppPDC {
     c_NumGiorno = attr.addIntAttr(CSZcol_NumGiorno, CSZds_NumGiorno, CSZ_DBTable, false);
 
     c_NumGiorno.setCalcolato(true);
-	//c_NumGiorno.setWriteable(st);setWriteable(false);
+	//c_NumGiorno.setWriteable(false);
 
+
+    
+    // Destinazione
+    c_Destinazione = attr.addCharAttr(CSZcol_Destinazione, CSZds_Destinazione, CSZ_DBTable, false);
+    c_Destinazione.setMaxLen(CSZcol_Destinazione_len); 
+
+    
+    // NotaGiorno
+    c_NotaGiorno = attr.addCharAttr(CSZcol_NotaGiorno, CSZds_NotaGiorno, CSZ_DBTable, false);
+    c_NotaGiorno.setMaxLen(CSZcol_NotaGiorno_len); 
 
     
     return true;
@@ -306,6 +332,26 @@ public class Giorno extends AppPDC {
 	}
 	public IntAttr getNumGiorno_attr() {
 		return c_NumGiorno;
+	}
+
+	public String getDestinazione() {
+		return c_Destinazione.getValue();
+	}
+	public void setDestinazione(String val) {
+		c_Destinazione.setValue(val);
+	}
+	public CharAttr getDestinazione_attr() {
+		return c_Destinazione;
+	}
+
+	public String getNotaGiorno() {
+		return c_NotaGiorno.getValue();
+	}
+	public void setNotaGiorno(String val) {
+		c_NotaGiorno.setValue(val);
+	}
+	public CharAttr getNotaGiorno_attr() {
+		return c_NotaGiorno;
 	}
 
   /**

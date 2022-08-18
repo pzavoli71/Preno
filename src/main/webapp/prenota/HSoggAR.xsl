@@ -61,7 +61,7 @@ function getTitolo(){
 
 	<xsl:apply-templates select="/DOCUMENTO/SoggAR/IdSoggetto" mode="CampoEnumerato">
 		<xsl:with-param name="enumerato" select="/DOCUMENTO/LstSoggetto/RECORD"></xsl:with-param>		
-		<xsl:with-param name="caption">Soggetto</xsl:with-param>
+		<xsl:with-param name="caption"><xsl:value-of select="$TitoloPagina"/></xsl:with-param>
 		<xsl:with-param name="id">IdSoggetto</xsl:with-param>
 		<xsl:with-param name="noVuoto">true</xsl:with-param>
 	</xsl:apply-templates>
@@ -105,7 +105,7 @@ function getTitolo(){
 
 	<xsl:apply-templates select="/DOCUMENTO/SoggAR/AR" mode="CampoEnumerato">
 		<xsl:with-param name="enumerato" select="/DOCUMENTO/LstAR/RECORD"></xsl:with-param>		
-		<xsl:with-param name="caption">A/R</xsl:with-param>
+		<xsl:with-param name="caption">Andata/Ritorno</xsl:with-param>
 		<xsl:with-param name="id">AR</xsl:with-param>
 		<xsl:with-param name="noVuoto">true</xsl:with-param>
 	</xsl:apply-templates>

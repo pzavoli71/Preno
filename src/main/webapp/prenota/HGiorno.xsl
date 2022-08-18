@@ -21,6 +21,9 @@
 	/*.cis-field-container .ValoreAttributo {
 		width:350px;
 	}*/
+	.cis-field-container label {
+		width:150px;
+	}
 	
 	</style>
 </xsl:template>
@@ -54,29 +57,12 @@ function getTitolo(){
  
 <xsl:template match="Giorno">
 
-	<xsl:apply-templates select="/DOCUMENTO/Giorno/IdTpTrasporto" mode="CampoEnumeratoX">
-		<!--Se il pdc ha la relazione aperta con il pdc figlio, posso far vedere il dato decodificato prelevandolo direttamente dall'xml-->
-		<xsl:with-param name="enumerato" select="DOCUMENTO/LstTipoTrasporto"></xsl:with-param>
-		<xsl:with-param name="servlet">/preno/prenota/HLstGiorno</xsl:with-param>
-		<xsl:with-param name="campocodice">idtptrasporto</xsl:with-param> <!--Nome del campo codice della simplelist dell'enumerato -->
-		<xsl:with-param name="campodesc">nome</xsl:with-param> <!--Nome del campo descrizione della simplelist dell'enumerato -->
-		<xsl:with-param name="size">7</xsl:with-param>
-		<!--xsl:with-param name="widthCampo">270px</xsl:with-param-->
-		<xsl:with-param name="ParametriCombo">{minwidth:'340px',NumeroChar:3, SizeCombo:30}</xsl:with-param> <!-- si puo chiamare una funzione prima del richiamo della servlet del combo. Aggiungere: , chiamaPrima:function(dati) {dati.TpSoggetto = $('#TpSoggetto').val()} -->
-		<xsl:with-param name="ParametriServlet">{MTipo:'L',GetXML:'true',MPasso:2,flSoloDatiCombo:'true'}</xsl:with-param>
-		
-		<!--xsl:with-param name="AltriCampi">[['colonnaEstrattaMinuscola', true, 'idCampoDoveSpostare']]</xsl:with-param-->
-		<!--xsl:with-param name="altricampi">['nascita_data','idsoggetto']</xsl:with-param--> 		<!-- Versione vecchia -->
-		<!--xsl:with-param name="CampiDaSpostare">['nascita_data','DtNascitaFamCar','idsoggetto','IdSoggettoAus']</xsl:with-param-->
-		<xsl:with-param name="caption">IdTpTrasporto</xsl:with-param>
-	</xsl:apply-templates>
-
-	<!--xsl:apply-templates select="/DOCUMENTO/Giorno/IdTpTrasporto" mode="CampoEnumerato">
-		<xsl:with-param name="enumerato" select="/DOCUMENTO/LstTipoTrasporto/RECORD"></xsl:with-param>
-		
-		<xsl:with-param name="caption">IdTpTrasporto</xsl:with-param>
+	<xsl:apply-templates select="/DOCUMENTO/Giorno/IdTpTrasporto" mode="CampoEnumerato">
+		<xsl:with-param name="enumerato" select="/DOCUMENTO/LstTipoTrasporto/RECORD"></xsl:with-param>		
+		<xsl:with-param name="caption">Tipo Trasporto</xsl:with-param>
+		<xsl:with-param name="readonly">true</xsl:with-param>
 		<xsl:with-param name="id">IdTpTrasporto</xsl:with-param>
-	</xsl:apply-templates-->
+	</xsl:apply-templates>
 
 	<!--xsl:apply-templates select="/DOCUMENTO/Giorno/IdTpTrasporto" mode="jqcombo">
 		<xsl:with-param name="enumerato" select="/DOCUMENTO/LstTipoTrasporto" />
@@ -91,16 +77,24 @@ function getTitolo(){
 		<!--xsl:with-param name="multiselect">true</xsl:with-param-->
 	<!--/xsl:apply-templates-->
 
-	<xsl:apply-templates select="/DOCUMENTO/Giorno/IdGiorno" mode="CampoIntero">
-		<xsl:with-param name="size">10</xsl:with-param>
-		<xsl:with-param name="chiave">true</xsl:with-param><xsl:with-param name="serial">true</xsl:with-param>
-		<xsl:with-param name="caption">IdGiorno</xsl:with-param>
+	<xsl:apply-templates select="IdGiorno" mode="hidden"/>
+
+	<xsl:apply-templates select="/DOCUMENTO/Giorno/DtGiorno" mode="CampoData">
+		<xsl:with-param name="size">12</xsl:with-param>
+		<xsl:with-param name="caption">Data</xsl:with-param>
 	</xsl:apply-templates>
 
-	<xsl:apply-templates select="/DOCUMENTO/Giorno/Giorno" mode="CampoData">
-		<xsl:with-param name="size">10</xsl:with-param>
-		
-		<xsl:with-param name="caption">Giorno</xsl:with-param>
+	<xsl:apply-templates select="NumGiorno" mode="hidden"/>
+
+	<xsl:apply-templates select="/DOCUMENTO/Giorno/Destinazione" mode="CampoTesto">
+		<xsl:with-param name="size">30</xsl:with-param>
+		<xsl:with-param name="caption">Destinazione</xsl:with-param>
+	</xsl:apply-templates>
+
+	<xsl:apply-templates select="/DOCUMENTO/Giorno/NotaGiorno" mode="CampoTestoArea">
+		<xsl:with-param name="cols">30</xsl:with-param>
+		<xsl:with-param name="rows">3</xsl:with-param>		
+		<xsl:with-param name="caption">Nota</xsl:with-param>
 	</xsl:apply-templates>
 
 </xsl:template>

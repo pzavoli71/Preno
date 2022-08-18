@@ -6,3 +6,9 @@
 .intest img {
 	display:none;	
 }
+a i {
+	margin-right:2px;
+}
+.screen-s .backmenu {
+    background-image: none;
+}

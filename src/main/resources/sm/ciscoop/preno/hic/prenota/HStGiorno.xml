@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<stampa xmlns="http://www.ciscoop.sm/stampa/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ciscoop.sm/stampa/2"  >
+<head>
+<include src="colors.xml" />
+<include src="fonts.xml" />
+  <document 
+  	foglio="A4" 
+  	orientamento="orizzontale" 
+  	margini="1cm 1cm 1cm 1cm"
+  	title="Report proiezione pensione">
+  </document>
+  
+<query><![CDATA[
+
+select * from Giorno
+			INNER JOIN SoggAR ON 1=1  AND SoggAR.IdGiorno = Giorno.IdGiorno
+			INNER JOIN TipoTrasporto ON 1=1  AND TipoTrasporto.IdTpTrasporto = Giorno.IdTpTrasporto
+			 WHERE 1 = 1 
+				 AND Giorno.IdGiorno = $IdGiorno
+			-- ORDER BY Cognome, Nome
+
+]]>
+</query>
+ 	<!--query name="Rinnovo"><![CDATA[
+ 		select top 1 *
+		FROM [opec].[dbo].[LIC_Rinnovo]
+		where IdLicenza = $IdLicenza and CdTassaLicenza = 1
+		  and AnnoRinnovo =
+		  (SELECT Max(AnnoRinnovo) as AnnoMax
+ 		FROM [opec].[dbo].[LIC_Rinnovo]
+  		where IdLicenza = $IdLicenza
+   		and CdTassaLicenza = 1
+		and DtInizio = '{{format($DtInizio,"yyyyMMdd")}}'		
+		)
+ 	]]>
+ 	</query-->  
+</head>
+
+<body textmode="text" >
+  	<pageHeader height="3cm">
+	<table widths="25 75" width="18cm"  grid="0.3 solid bianco"  halign="left">
+	       <cell valign="top" halign="center"><image width="50" src="stemma.png"/></cell>
+		    <cell border="0" paddingBottom="10">
+		      <text refFont="hf_bold">ISTITUTO PER LA SICUREZZA SOCIALE</text>
+		      <text refFont="hfsmall_italic">FONDISS</text>
+		    </cell>
+	</table>  	
+  	</pageHeader>
+	
+	<!--include src="FileEventualeDaIncludere.xml" encoding="UTF-8"/-->
+	
+	<text halign="center" refFont="timesbold" >Inserisci il titolo qui</text>
+	<text halign="center" refFont="timesbold" >per: <field value="trim(#nome)"></field> <field value="trim(#cognome)"></field> nato il <date value="#nascita_data"></date></text>
+	<text halign="right" refFont="rsm_normal11" ><date value="now()"/></text>	
+	
+	<table cols="4" grid="0.1 solid #232323" refFont="testotimes_small" cellPadding="4" backgroundColorHeader="#e9e9e9" widths="1 1 1 1 ">
+				<cell><text halign="left" refFont="rsm_bold11">IdTpTrasporto</text></cell>
+				<cell><text halign="left" refFont="rsm_bold11">IdGiorno</text></cell>
+				<cell><text halign="left" refFont="rsm_bold11">DtGiorno</text></cell>
+				<cell><text halign="left" refFont="rsm_bold11">NumGiorno</text></cell>
+
+			<group name="tbl" keys="idgiorno">
+				<cell><text halign="left"><field value="#idtptrasporto" /></text></cell>
+				<cell><text halign="left"><field value="#idgiorno" /></text></cell>
+				<cell><text halign="left"><field value="#dtgiorno" /></text></cell>
+				<cell><text halign="left"><field value="#numgiorno" /></text></cell>
+
+			</group>			
+	</table>
+	
+	<!--newpage orientamento="orizzontale" margini="10 10 10 10"/-->
+
+    <pageFooter  height="1.5cm" halign="left">
+    </pageFooter>
+	
+</body>
+</stampa>

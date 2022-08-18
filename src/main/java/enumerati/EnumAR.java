@@ -13,7 +13,7 @@ public class EnumAR extends Enumerato {
 	public enum EnAR implements EnumConverter<String> {
 		A("1", "Sola andata"),
 		R("2", "Solo ritorno"),
-		T("3", "Tutti e due"),
+		T("3", "Andata e ritorno"),
 		;
 
 		private static ReverseEnumMap<String, EnAR>	map	= new ReverseEnumMap<String, EnAR>(EnAR.class);

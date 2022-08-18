@@ -46,7 +46,7 @@
   <properties>
     <cis.appl.context>preno</cis.appl.context>
     <cis.appl.mainpackage>preno</cis.appl.mainpackage>
-    <cis.appl.description>Prenotazione trasporto ragazzi 2008</cis.appl.description>
+    <cis.appl.description>Prenotazione trasporto ragazzi</cis.appl.description>
     <cis.appl.display.name>Prenotiamo</cis.appl.display.name>
     <cis.appl.idapplicativo>67</cis.appl.idapplicativo>
     <cis.appl.idservizio.internet>
@@ -89,8 +89,8 @@
       <properties>
         <cis.backup.profiledir>localhost</cis.backup.profiledir>
         <cis.std.wsportalepa.url>${cis.const.wsportalepa.intranet.url}</cis.std.wsportalepa.url>
-        <cis.std.sviluppo>true</cis.std.sviluppo>
-        <cis.std.debug.project>true</cis.std.debug.project>
+        <cis.std.sviluppo>false</cis.std.sviluppo>
+        <cis.std.debug.project>false</cis.std.debug.project>
         <cis.std.isapp.portale>false</cis.std.isapp.portale>
         <cis.std.nonguardare.zutente>false</cis.std.nonguardare.zutente>
         <cis.contextxml.antiresourcelocking>false</cis.contextxml.antiresourcelocking>

@@ -54,11 +54,14 @@ public class HSLstSoggetto extends AppSListMask<Soggetto> {
 
 	public static final String SERVLET_NAME     = "HSLstSoggetto";
 	public static final String SERVLET_URL      = "/soggetti/" + HSLstSoggetto.SERVLET_NAME;
-
+	
+	CharAttr c_Nome;
+	
 	@Override
 	public void initMsk() throws Exception  {
 		super.initMsk();
-		//Attributi attrs = getAttributi();
+		Attributi attrs = getAttributi();
+		c_Nome = (CharAttr) attrs.add("Nome", PDCType.CHAR); 
 	}
 
 	@Override
@@ -66,8 +69,8 @@ public class HSLstSoggetto extends AppSListMask<Soggetto> {
 		String ls = "select top 100 * from "+Soggetto.CSZ_DBTable;
 		
 		ls += " WHERE 1 = 1 ";
-			if ( !((NumericAttr)getPDC().getAttributi().get(Soggetto.CSZcol_IdSoggetto)).isEmptyNullOrZero()) {
-				ls += " AND "+Soggetto.CSZ_DBTable+".IdSoggetto = "+getPDC().getIdSoggetto();
+		if ( !c_Nome.isEmptyNullOrZero()) {
+			ls += " AND "+Soggetto.CSZ_DBTable+".NomeSoggetto like '%" + getJBB().getFormattedVal(c_Nome.getValue(), false) + "%'";
 		}
 
 		//ls += " ORDER BY Cognome, Nome";
@@ -109,7 +112,7 @@ public class HSLstSoggetto extends AppSListMask<Soggetto> {
 	@Override
 	public SimpleList beforeLoadLista(SimpleList lista) throws CISException {
 		if ( c_DIMPAGINA.isEmptyNullOrZero()) {
-			c_DIMPAGINA.setValue(10);
+			c_DIMPAGINA.setValue(50);
 	  }
 		lista.setPageSize(c_DIMPAGINA.getIntValue());
 		return null;

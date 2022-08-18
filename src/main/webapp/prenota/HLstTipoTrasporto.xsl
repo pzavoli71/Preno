@@ -99,7 +99,7 @@ function getAutoHref() {
 				<xsl:with-param name="href">/preno/prenota/HTipoTrasporto?MTipo=V&amp;MPasso=2&amp;IdTpTrasporto=<xsl:value-of select="IdTpTrasporto"/></xsl:with-param>
 				<xsl:with-param name="title">Modifica un TipoTrasporto</xsl:with-param>
 				<xsl:with-param name="fa-class">fa-edit</xsl:with-param>
-				<xsl:with-param name="onunload">CISLoader.loadEntity({IdTpTrasporto: "<xsl:value-of select="IdTpTrasporto"/>"})</xsl:with-param>
+				<xsl:with-param name="onunload">document.location.reload();</xsl:with-param>
 				<xsl:with-param name="caption">Gestione TipoTrasporto</xsl:with-param>
 			</xsl:call-template>
 		</td>

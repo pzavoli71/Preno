@@ -1,16 +1,22 @@
 package sm.ciscoop.preno.hic.abilitazione;
 
 
+import java.net.URL;
+
 import javax.servlet.annotation.WebServlet;
 
 import sm.ciscoop.preno.hic.masks.IAppMask;
+import sm.ciscoop.preno.utils.AppProperties;
 import sm.ciscoop.sec.AccessManager;
 import sm.ciscoop.sec.pdc.zRuolo;
 import sm.ciscoop.servlet.HCommonLogon;
 import sm.ciscoop.servlet.sec.ProfiloUtente;
 import sm.ciscoop.servlet.sec.ProfiloUtente.ColonneProfiloUtente;
 import sm.ciscoop.stdlibs.baseutils.exceptions.CISException;
+import sm.ciscoop.stdlibs.baseutils.lang.Classes;
 import sm.ciscoop.stdlibs.baseutils.types.Text;
+import sm.ciscoop.util.CoreProperties;
+import sm.ciscoop.util.CoreUtils;
 
 
 @WebServlet(value = "/abilitazione/HLogon", name = "HLogon")
@@ -70,6 +76,16 @@ public class HLogon extends HCommonLogon implements IAppMask {
 			throw new CISException("Errore! Il nome utente associato al profilo Ã¨ diverso da quello del server di autenticazione!");
 		}
 		return profiloUtente;
+	}
+
+	@Override
+	public String getProxMaskName() {
+		String url = Classes.getBasePackagePath(HLogon.class) + "/abilitazione/HLogon.xsl";
+		//url = AppProperties.getInstance().getContextPath() + "/abilitazione/HLogon.xsl";
+		url = "file:////" + getServletContext().getRealPath("/abilitazione/HLogon.xsl");
+		return url;
+		/*URL resUrl = HLogon.class.getResource("/preno/abilitazione/HLogon.xsl");
+		return CoreUtils.getProxMaskName(resUrl);*/
 	}
 	
 }

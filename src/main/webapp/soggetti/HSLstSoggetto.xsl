@@ -190,7 +190,7 @@ function comandoTerminato(nomecomando, chiave, data, href, callback) {
 					<xsl:with-param name="codice"  select="/DOCUMENTO/TipoPratica"/>
 				</xsl:apply-templates-->
 
-				<xsl:apply-templates select="/DOCUMENTO/Soggetto/IdSoggetto" mode="nodoattributo" />
+				<xsl:apply-templates select="/DOCUMENTO/Nome" mode="nodoattributo" />
 
 			</div>
 			<div class="filtrodestra">
@@ -492,11 +492,10 @@ function comandoTerminato(nomecomando, chiave, data, href, callback) {
 <!-- ============================================ -->
 <xsl:template name="LeftFilter">
 
-	<xsl:apply-templates select="." mode="CampoIntero">
+	<xsl:apply-templates select="/DOCUMENTO/Nome" mode="CampoTesto">
 	<xsl:with-param name="size">50</xsl:with-param>
 	
-	<xsl:with-param name="caption">IdSoggetto</xsl:with-param>
-	<xsl:with-param name="kill0">true</xsl:with-param>
+	<xsl:with-param name="caption">Nome</xsl:with-param>
 	</xsl:apply-templates>
 
 </xsl:template>

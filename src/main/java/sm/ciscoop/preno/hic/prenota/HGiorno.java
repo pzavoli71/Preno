@@ -108,19 +108,6 @@ public class HGiorno extends AppSingleMask<Giorno> {
 			String lscombo = "";
 			// Todo Aggiungere qui i campi filtro dinamici
 			
-			if (camporicerca.equalsIgnoreCase("IdTpTrasporto")) {
-				String ls = "select top 100 IdTpTrasporto, NomeTpTrasporto as nome FROM "+TipoTrasporto.CSZ_DBTable;
-				ls += " WHERE 1 = 1";
-				if ( desc != null && desc.length() >= 1) {
-					desc = desc.replaceAll("'", "''");
-					ls += " AND NomeTpTrasporto like '"+desc.trim()+"%'";
-				} else if ( cd != null && cd.length() > 0) {
-					ls += " AND IdTpTrasporto = "+cd.trim();
-				} else
-					ls += " AND 1 = 0";
-				appendToResponse(new AnySelect(ls, "Elementi"));
-			}
-			
 			} else if (isCaricaSoloRelaz()) {
 				// Mi è stato richiesto di aprire una relazione tra un pdc e un altro, pertanto la devo caricare e visualizzare (richiesta con ajax)
     			String nomepdc = getParNomePDC();
@@ -182,7 +169,7 @@ public class HGiorno extends AppSingleMask<Giorno> {
 				// xml.append(en.getXML(Enumerati.ENUM_...)
 			
 				String lsTipoTrasporto = "select IdTpTrasporto, NomeTpTrasporto FROM "+TipoTrasporto.CSZ_DBTable;
-				lsTipoTrasporto += " WHERE 1 = 0 "; // Ricordarsi di abilitare il combo togliendo questo filtro
+				lsTipoTrasporto += " WHERE 1 = 1 "; // Ricordarsi di abilitare il combo togliendo questo filtro
 				appendToResponse(new AnySelect(lsTipoTrasporto, "TipoTrasporto"));
 			
 		}		

@@ -207,11 +207,12 @@ function getAutoHref() {
     		min-height:3em;
     		/*border:1px solid #dbdbdb;
     		border-radius:2px;*/
-    		font-size:0.7em;
+    		/*font-size:0.7em;*/
 			/*box-shadow: 2px 2px 5px #726262;*/
 			position:relative;
 			height:100%;
 			top:0px;
+			text-align:center;
     	}
     	.cis-button {
     		padding-left: 2px;
@@ -250,6 +251,7 @@ function getAutoHref() {
     		position:relative;  
     		min-height:50px;  
     		background-color: #dddddd;	
+    		margin-top:3px;
     	}
     	.noback {
     		background-color:#ffffff00;
@@ -258,6 +260,16 @@ function getAutoHref() {
     	}
     	.noback:hover {
     		background-color:#ffffff;
+    	}
+    	.bordato > p {
+			font-weight: bold;
+    		background-color: #efefef;
+    		color: black;
+    		border-bottom: 1px solid black;
+    		font-size: 11pt;
+    	}
+    	a.nomargin {
+    		padding:0px;
     	}
     </style>
     <xsl:call-template name="Errori"/>
@@ -302,54 +314,89 @@ function getAutoHref() {
 
 <xsl:template match="G">
 <xsl:variable name="num"><xsl:value-of select="@num"/></xsl:variable>
-	<div class="numgiorno"><xsl:value-of select="@num"/></div>
+	<div class="numgiorno">
+		<xsl:choose> 
+			<xsl:when test="count(/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]) &gt; 0">	
+		<xsl:call-template name="ButtonHref">
+			<xsl:with-param name="href">/preno/prenota/HGiorno?MTipo=R&amp;MPasso=2&amp;IdGiorno=<xsl:value-of select="/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]/IdGiorno"/>&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=1&amp;AR=1</xsl:with-param>
+			<xsl:with-param name="title">Modifica i parametri</xsl:with-param>
+			<xsl:with-param name="fa-class">fa-edit</xsl:with-param>
+			<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
+			<xsl:with-param name="caption">Parametri del Giorno</xsl:with-param>
+			<xsl:with-param name="text"><xsl:value-of select="@num"/></xsl:with-param>
+			<xsl:with-param name="extraClass">nomargin</xsl:with-param>
+		</xsl:call-template>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="@num"/>
+		</xsl:otherwise>
+		</xsl:choose>			
+	</div>
 <div class="tabcella">
-	<p>Andata</p>	
-	<div style="text-align:center;position:relative">
 		<xsl:call-template name="ButtonHref">
 			<xsl:with-param name="href">/preno/prenota/HSoggAR?MTipo=I&amp;MPasso=1&amp;Anno=<xsl:value-of select="/DOCUMENTO/Anno"/>&amp;Mese=<xsl:value-of select="/DOCUMENTO/Mese"/>&amp;IdTpTrasporto=<xsl:value-of select="/DOCUMENTO/IdTpTrasporto"/>&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=1&amp;AR=1</xsl:with-param>
-			<xsl:with-param name="title">Vado io</xsl:with-param>
+			<xsl:with-param name="title">Aggiungi autista</xsl:with-param>
 			<xsl:with-param name="fa-class">fa-plus-circle</xsl:with-param>
 			<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
-			<xsl:with-param name="caption">Gestione Autista</xsl:with-param>
+			<xsl:with-param name="caption">Aggiungi Autista</xsl:with-param>
 			<xsl:with-param name="text">Autista</xsl:with-param>
 		</xsl:call-template>		
 		<xsl:call-template name="ButtonHref">
 			<xsl:with-param name="href">/preno/prenota/HSoggAR?MTipo=I&amp;MPasso=1&amp;Anno=<xsl:value-of select="/DOCUMENTO/Anno"/>&amp;Mese=<xsl:value-of select="/DOCUMENTO/Mese"/>&amp;IdTpTrasporto=<xsl:value-of select="/DOCUMENTO/IdTpTrasporto"/>&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=2&amp;AR=1</xsl:with-param>
-			<xsl:with-param name="title">Segna un ragazzo</xsl:with-param>
+			<xsl:with-param name="title">Aggiungi un ragazzo</xsl:with-param>
 			<xsl:with-param name="fa-class">fa-plus-circle</xsl:with-param>
 			<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
-			<xsl:with-param name="caption">Gestione Ragazzo</xsl:with-param>
+			<xsl:with-param name="caption">Aggiungi Ragazzo</xsl:with-param>
 			<xsl:with-param name="text">Ragazzo</xsl:with-param>
 		</xsl:call-template>
-	</div>
+
+<xsl:if test="count(/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]) &gt; 0"><p style="font-size:8pt;font-style:italic;margin:0px;"><xsl:value-of select="/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]/Destinazione"/><br/><xsl:value-of select="/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]/NotaGiorno" disable-output-escaping="true"/></p></xsl:if>
+	<div style="text-align:center;position:relative" class="bordato">
+	<p>Andata</p>	
+		<!-- xsl:call-template name="ButtonHref">
+			<xsl:with-param name="href">/preno/prenota/HSoggAR?MTipo=I&amp;MPasso=1&amp;Anno=<xsl:value-of select="/DOCUMENTO/Anno"/>&amp;Mese=<xsl:value-of select="/DOCUMENTO/Mese"/>&amp;IdTpTrasporto=<xsl:value-of select="/DOCUMENTO/IdTpTrasporto"/>&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=1&amp;AR=1</xsl:with-param>
+			<xsl:with-param name="title">Aggiungi autista</xsl:with-param>
+			<xsl:with-param name="fa-class">fa-plus-circle</xsl:with-param>
+			<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
+			<xsl:with-param name="caption">Aggiungi Autista</xsl:with-param>
+			<xsl:with-param name="text">Autista</xsl:with-param>
+		</xsl:call-template>		
+		<xsl:call-template name="ButtonHref">
+			<xsl:with-param name="href">/preno/prenota/HSoggAR?MTipo=I&amp;MPasso=1&amp;Anno=<xsl:value-of select="/DOCUMENTO/Anno"/>&amp;Mese=<xsl:value-of select="/DOCUMENTO/Mese"/>&amp;IdTpTrasporto=<xsl:value-of select="/DOCUMENTO/IdTpTrasporto"/>&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=2&amp;AR=1</xsl:with-param>
+			<xsl:with-param name="title">Aggiungi un ragazzo</xsl:with-param>
+			<xsl:with-param name="fa-class">fa-plus-circle</xsl:with-param>
+			<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
+			<xsl:with-param name="caption">Aggiungi Ragazzo</xsl:with-param>
+			<xsl:with-param name="text">Ragazzo</xsl:with-param>
+		</xsl:call-template-->
 	<xsl:call-template name="Giorno">
 		<xsl:with-param name="num"><xsl:value-of select="$num"/></xsl:with-param>
 		<xsl:with-param name="ar">1</xsl:with-param>
-	</xsl:call-template>	
+	</xsl:call-template>
+	</div>
+	<div style="text-align:center;position:relative" class="bordato">
 	<p>Ritorno</p>	
-	<div style="text-align:center;position:relative">
-		<xsl:call-template name="ButtonHref">
+		<!-- xsl:call-template name="ButtonHref">
 			<xsl:with-param name="href">/preno/prenota/HSoggAR?MTipo=I&amp;MPasso=1&amp;Anno=<xsl:value-of select="/DOCUMENTO/Anno"/>&amp;Mese=<xsl:value-of select="/DOCUMENTO/Mese"/>&amp;IdTpTrasporto=<xsl:value-of select="/DOCUMENTO/IdTpTrasporto"/>&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=1&amp;AR=2</xsl:with-param>
-			<xsl:with-param name="title">Vado io</xsl:with-param>
+			<xsl:with-param name="title">Aggiungi un autista</xsl:with-param>
 			<xsl:with-param name="fa-class">fa-plus-circle</xsl:with-param>
 			<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
-			<xsl:with-param name="caption">Gestione Autista</xsl:with-param>
+			<xsl:with-param name="caption">Aggiunti Autista</xsl:with-param>
 			<xsl:with-param name="text">Autista</xsl:with-param>
 		</xsl:call-template>		
 		<xsl:call-template name="ButtonHref">
 			<xsl:with-param name="href">/preno/prenota/HSoggAR?MTipo=I&amp;MPasso=1&amp;Anno=<xsl:value-of select="/DOCUMENTO/Anno"/>&amp;Mese=<xsl:value-of select="/DOCUMENTO/Mese"/>&amp;IdTpTrasporto=<xsl:value-of select="/DOCUMENTO/IdTpTrasporto"/>&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=2&amp;AR=2</xsl:with-param>
-			<xsl:with-param name="title">Segna un ragazzo</xsl:with-param>
+			<xsl:with-param name="title">Aggiungi un ragazzo</xsl:with-param>
 			<xsl:with-param name="fa-class">fa-plus-circle</xsl:with-param>
 			<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
-			<xsl:with-param name="caption">Gestione Ragazzo</xsl:with-param>
+			<xsl:with-param name="caption">Aggiungi Ragazzo</xsl:with-param>
 			<xsl:with-param name="text">Ragazzo</xsl:with-param>
-		</xsl:call-template>
-	</div>
+		</xsl:call-template-->
 	<xsl:call-template name="Giorno">
 		<xsl:with-param name="num"><xsl:value-of select="$num"/></xsl:with-param>
 		<xsl:with-param name="ar">2</xsl:with-param>
 	</xsl:call-template>
+	</div>
 </div>
 </xsl:template>
 
@@ -357,14 +404,14 @@ function getAutoHref() {
 <xsl:param name="num"/>
 <xsl:param name="ar"/>
 	<xsl:variable name="tptrasporto"><xsl:value-of select="IdTpTrasporto"/></xsl:variable>
-	<div class="bordato">
+	<div>
 	<xsl:for-each select="/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]/ListaGiorno_SoggAR/SoggAR[AR = $ar or AR = 3]/Soggetto[bRagazzo = 'false']">
 		<xsl:call-template name="ButtonHref">
 			<xsl:with-param name="href">/preno/prenota/HSoggAR?MTipo=V&amp;MPasso=2&amp;Anno=<xsl:value-of select="/DOCUMENTO/Anno"/>&amp;Mese=<xsl:value-of select="/DOCUMENTO/Mese"/>&amp;IdTpTrasporto=<xsl:value-of select="/DOCUMENTO/IdTpTrasporto"/>&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=1&amp;IdSoggAndata=<xsl:value-of select="../IdSoggAndata"/></xsl:with-param>
 			<!-- xsl:with-param name="title">Autista</xsl:with-param-->
 			<xsl:with-param name="fa-class">fa-automobile</xsl:with-param>
 			<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
-			<xsl:with-param name="caption">Gestione Autista</xsl:with-param>
+			<xsl:with-param name="caption">Modifica Autista</xsl:with-param>
 			<xsl:with-param name="text"><xsl:value-of select="NomeSoggetto"/></xsl:with-param>
 			<xsl:with-param name="extraClass">noback</xsl:with-param>
 		</xsl:call-template>			
@@ -377,7 +424,7 @@ function getAutoHref() {
 			<!-- xsl:with-param name="title">Ragazzo</xsl:with-param-->
 			<xsl:with-param name="fa-class">fa-soccer-ball-o</xsl:with-param>
 			<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
-			<xsl:with-param name="caption">Gestione Ragazzo</xsl:with-param>
+			<xsl:with-param name="caption">Modifica Ragazzo</xsl:with-param>
 			<xsl:with-param name="text"><xsl:value-of select="NomeSoggetto"/></xsl:with-param>
 			<xsl:with-param name="extraClass">noback</xsl:with-param>
 		</xsl:call-template>			
