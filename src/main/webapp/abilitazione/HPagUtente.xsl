@@ -70,7 +70,7 @@
 				    		<i class="fa fa-arrow-circle-down"></i>
 				    	</div>			    				    				    	
 				    </div>
-				    <div title="Apri il Menu" class="hamburger" onclick="fnBarraMenuToggle()">
+				    <div class="hamburger" onclick="fnBarraMenuToggle()">
 				    	<i class="fa fa-bars"/>
 				    </div>
 				</div>

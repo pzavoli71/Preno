@@ -102,7 +102,7 @@ public class HStGiorno extends AppStampeMask<Giorno, ReportGiorno> {
   
 	@Override
 	protected void beforeCreateReport() throws Exception {
-		getReportConfigurator().addParameter("IdGiorno", getPDC().getIdGiorno());
+		getReportConfigurator().addParameter("DtGiorno", getPDC().getDtGiorno());
 		getReportConfigurator().setQuery(getQuery());
 	}
 	

@@ -1,8 +1,8 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
 
-<xsl:import href="${AppThemes}/atlanta-1.0.0-SNAPSHOT/xsl/theme.xsl"/>
-<xsl:import href="${AppThemes}/atlanta-1.0.0-SNAPSHOT/xsl/forms2.xsl"/>
+<xsl:import href="${AppThemes}/atlanta-1.1.0-SNAPSHOT/xsl/theme.xsl"/>
+<xsl:import href="${AppThemes}/atlanta-1.1.0-SNAPSHOT/xsl/forms2.xsl"/>
 <xsl:import href="${AppXSL}/app.xsl"/>
 
 

@@ -207,6 +207,7 @@ import sm.ciscoop.dmc.DMCDB;
 			
 				String lsTipoTrasporto = "select IdTpTrasporto, NomeTpTrasporto FROM "+TipoTrasporto.CSZ_DBTable;
 				lsTipoTrasporto += " WHERE 1 = 1 "; // Ricordarsi di abilitare il combo togliendo questo filtro
+				//lsTipoTrasporto += " AND exists ( select * from "
 				appendToResponse(new AnySelect(lsTipoTrasporto, "TipoTrasporto"));
 								
 				// Creo l'array dei giorni del mese

@@ -1,9 +1,11 @@
 package sm.ciscoop.preno.hic.prenota;
 
 import java.io.File;
+import java.util.Date;
 
 import sm.ciscoop.jbb.JBB;
 import sm.ciscoop.preno.utils.AppReportConfigurator;
+import sm.ciscoop.stdlibs.baseutils.types.DtUtil;
 import sm.ciscoop.stdlibs.db.GenericDBConn;
 import sm.ciscoop.util.CoreProperties;
 
@@ -60,7 +62,15 @@ public class ReportGiorno extends AppReportConfigurator {
 		addParameter("Fax", "+378(0549)994252");
 		setQuery(getQuery());
 
-		String pathStpPDF = CoreProperties.getInstance().getProp("PDF_OUTPATH");
+		Date dt = getParamAsDate("DtGiorno");
+		Date dtinizio = DtUtil.getPrimoDelMese(dt);
+		Date dtfine = DtUtil.getUltimoDelMese(dt);
+		
+		addParameter("DtInizio", getJBB().getFormattedVal(dtinizio));
+		addParameter("DtFine", getJBB().getFormattedVal(dtfine));
+		addParameter("IdTpTrasporto", getParamAsInt("IdTpTrasporto"));
+		
+		/*String pathStpPDF = CoreProperties.getInstance().getProp("PDF_OUTPATH");
 		if (pathStpPDF == null) {
 			throw new Exception(" Errore in lettura PDF_OUTPATH");
 		}
@@ -68,7 +78,7 @@ public class ReportGiorno extends AppReportConfigurator {
 		File outDir = new File(pathStpPDF);
 		outDir.mkdirs();
 		setOutputDir(pathStpPDF);
-
+*/
 	}
 	
 }

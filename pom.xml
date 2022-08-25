@@ -82,6 +82,7 @@
         <cis.deploy.settings.serverid>localhost7</cis.deploy.settings.serverid>
         <cis.deploy.host>${cis.const.db.host.elrond}</cis.deploy.host>
         <cis.index.logon.url>abilitazione/HLogon</cis.index.logon.url>
+		<preno.pdf.outpath>c:/ciscoop</preno.pdf.outpath>        
       </properties>
     </profile>
     <profile>
@@ -102,6 +103,7 @@
         <cis.index.logon.url>abilitazione/HLogon</cis.index.logon.url>
         <cis.std.db.host>localhost</cis.std.db.host>
         <cis.std.db.service>1433</cis.std.db.service>
+		<preno.pdf.outpath>c:/temp</preno.pdf.outpath>        
 	    <!-- cis.std.db.host>${cis.const.db.host.elrond}</cis.std.db.host>
     	<cis.std.db.service>${cis.const.db.port.elrond}</cis.std.db.service-->
       </properties>

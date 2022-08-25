@@ -269,7 +269,10 @@ function getAutoHref() {
     		font-size: 11pt;
     	}
     	a.nomargin {
-    		padding:0px;
+    		padding:1px;
+    	}
+    	.destra {
+    		float:right;
     	}
     </style>
     <xsl:call-template name="Errori"/>
@@ -317,20 +320,39 @@ function getAutoHref() {
 	<div class="numgiorno">
 		<xsl:choose> 
 			<xsl:when test="count(/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]) &gt; 0">	
-		<xsl:call-template name="ButtonHref">
-			<xsl:with-param name="href">/preno/prenota/HGiorno?MTipo=R&amp;MPasso=2&amp;IdGiorno=<xsl:value-of select="/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]/IdGiorno"/>&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=1&amp;AR=1</xsl:with-param>
-			<xsl:with-param name="title">Modifica i parametri</xsl:with-param>
-			<xsl:with-param name="fa-class">fa-edit</xsl:with-param>
-			<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
-			<xsl:with-param name="caption">Parametri del Giorno</xsl:with-param>
-			<xsl:with-param name="text"><xsl:value-of select="@num"/></xsl:with-param>
-			<xsl:with-param name="extraClass">nomargin</xsl:with-param>
-		</xsl:call-template>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:value-of select="@num"/>
-		</xsl:otherwise>
+			<xsl:call-template name="ButtonHref">
+				<xsl:with-param name="href">/preno/prenota/HGiorno?MTipo=R&amp;MPasso=2&amp;IdGiorno=<xsl:value-of select="/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]/IdGiorno"/>&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=1&amp;AR=1&amp;IdTpTrasporto=<xsl:value-of select="/DOCUMENTO/IdTpTrasporto"/></xsl:with-param>
+				<xsl:with-param name="title">Modifica i parametri del giorno</xsl:with-param>
+				<xsl:with-param name="fa-class">fa-edit</xsl:with-param>
+				<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
+				<xsl:with-param name="caption">Parametri del Giorno</xsl:with-param>
+				<xsl:with-param name="text"><xsl:value-of select="@num"/></xsl:with-param>
+				<xsl:with-param name="extraClass">nomargin</xsl:with-param>
+			</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+			<xsl:call-template name="ButtonHref">
+				<xsl:with-param name="href">/preno/prenota/HGiorno?MTipo=I&amp;MPasso=1&amp;Giorno=<xsl:value-of select="$num"/>&amp;TpSoggetto=1&amp;AR=1&amp;IdTpTrasporto=<xsl:value-of select="/DOCUMENTO/IdTpTrasporto"/></xsl:with-param>
+				<xsl:with-param name="title">Inserisci il giorno</xsl:with-param>
+				<xsl:with-param name="fa-class">fa-plus-circle</xsl:with-param>
+				<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
+				<xsl:with-param name="caption">Parametri del Giorno</xsl:with-param>
+				<xsl:with-param name="text"><xsl:value-of select="@num"/></xsl:with-param>
+				<xsl:with-param name="extraClass">nomargin</xsl:with-param>
+			</xsl:call-template>				
+			</xsl:otherwise>
 		</xsl:choose>			
+			<xsl:call-template name="ButtonHref">
+				<xsl:with-param name="href">/preno/prenota/HStGiorno?MTipo=S&amp;MPasso=3&amp;IdGiorno=<xsl:value-of select="/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]/IdGiorno"/>&amp;DtGiorno=<xsl:value-of select="/DOCUMENTO/LstElementi/Giorno[NumGiorno = $num]/DtGiorno"/>&amp;IdTpTrasporto=<xsl:value-of select="/DOCUMENTO/IdTpTrasporto"/></xsl:with-param>
+				<xsl:with-param name="title">Stampa il riepilogo mensile</xsl:with-param>
+				<xsl:with-param name="fa-class">fa-print</xsl:with-param>
+				<xsl:with-param name="onunload">document.location.reload()</xsl:with-param>
+				<xsl:with-param name="text"></xsl:with-param>
+				<xsl:with-param name="extraClass">nomargin destra</xsl:with-param>
+				<xsl:with-param name="target">_blank</xsl:with-param>
+				<xsl:with-param name="isDoc">true</xsl:with-param>
+			</xsl:call-template>		
+		
 	</div>
 <div class="tabcella">
 		<xsl:call-template name="ButtonHref">
