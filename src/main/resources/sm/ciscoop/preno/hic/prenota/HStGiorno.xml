@@ -6,7 +6,7 @@
   <document 
   	foglio="A4" 
   	orientamento="orizzontale" 
-  	margini="0.5cm 1cm 0.5cm 1cm"
+  	margini="0.5cm 0.5cm 0.1cm 0.5cm"
   	title="Stampa prenotazioni mensili">
   </document>
   
@@ -31,7 +31,7 @@ inner join TipoTrasporto tt on tt.IdTpTrasporto = t.IdTpTrasporto
  AND DtGiorno >= $DtInizio
  AND DtGiorno <= $DtFine
  and tt.IdTpTrasporto = $IdTpTrasporto
-order by ar, bragazzo desc
+order by DtGiorno, ar, bragazzo desc
 
 
 ]]>
@@ -52,38 +52,29 @@ order by ar, bragazzo desc
 </head>
 
 <body textmode="text" >
-  	<pageHeader height="0.5cm">
-	<table widths="25 75" width="18cm"  grid="0.3 solid bianco"  halign="left">
-	       <cell valign="top" halign="center"><!-- mage width="50" src="stemma.png"/--></cell>
+  	<pageHeader height="0.02cm">
+	<table cols="1" width="18cm"  grid="0.3 solid bianco"  halign="center">
 		    <cell border="0" paddingBottom="0">
-		      <text refFont="hf_bold">PRENOTAZIONI RAGAZZI PER TRASPORTO FEDERAZIONE CALCIO</text>
-		      <text halign="center" refFont="hfsmall_italic" >per: <field value="trim(#nometptrasporto)"></field></text>
+		      <text refFont="hf_bold">PRENOTAZIONI RAGAZZI PER TRASPORTO FEDERAZIONE CALCIO <span refFont="hfsmall_italic">per: <field value="trim(#nometptrasporto)"></field></span></text>
 		    </cell>
-	</table>  	
-  	</pageHeader>
-<table cols="8" grid="0.1 solid #232323">
+	</table>
+</pageHeader>
+<table cols="8" grid="0.1 solid #232323" marginTop="0">
 	<group name="giornate" keys="idgiorno">
 		<cell valign="top" paddingTop="0">
-<table cols="1" marginTop="0"> <!-- grid="0.1 solid #232323" -->
+<table cols="1" marginTop="0"> 
 			<cell halign="center" refFont="rsm_bold8" paddingTop="0.1cm" paddingBottom="0.1cm" border="0.1 solid #232323"><field value="format(giornate#dtgiorno, 'EEEE, dd MMMM')"/></cell>
-			<group name="tratta" keys="ar">
+<cell halign="center" border="0.1 solid #232323"><if test="!isnull(giornate#destinazione)"><text refFont="rsm_mini7"><field value="giornate#destinazione"/></text></if>
+<if test="!isnull(giornate#notagiorno)"><text refFont="rsm_mini7"><field value="giornate#notagiorno"/></text></if></cell>
+			<group name="tratta" keys="ar">			
 				<if test="tratta#ar = 1"><cell halign="center" refFont="rsm_bold8">Andata</cell></if>
 				<if test="tratta#ar = 2"><cell halign="center" refFont="rsm_bold8">Ritorno</cell></if>
-				<cell>
-				<table cols="2" refFont="rsm_mini7" widths="1 2">
-				<group name="soggetti" keys="*" use="bragazzo,nomesoggetto">
-					<cell ><text halign="left"><if test="soggetti#bragazzo = 0">Autista</if><if test="soggetti#bragazzo = -1">Ragazzo</if></text></cell>
-					<cell><text halign="left"><field value="soggetti#nomesoggetto" /></text></cell>
-				</group>
-				</table>
+				<cell padding="0"><text marginLeft="0" halign="center">
+				<group block="false" name="soggetti" keys="ar,bragazzo,nomesoggetto"><span>  <field value="rtrim(soggetti#nomesoggetto)"/><if test="soggetti#bragazzo = 0"><span>(Autista)</span>     </if> </span></group></text>
 				</cell>
 			</group>
 		</table>
 		</cell>
 	</group>	
-	</table>
-	<!--newpage orientamento="orizzontale" margini="10 10 10 10"/-->
-    <!-- pageFooter  height="0.5cm" halign="left">
-    </pageFooter-->	
-</body>
+</table></body>
 </stampa>
