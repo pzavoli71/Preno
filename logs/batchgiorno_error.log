@@ -1,0 +1,226 @@
+2022-08-30 16:29:43|                    |ERROR| - si è verificata l'eccezione Non è stato impostato un messaggio di HELP
+sm.ciscoop.stdlibs.baseutils.exceptions.CISException: Non è stato impostato un messaggio di HELP
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:141)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+
+2022-08-30 16:30:05|                    |ERROR| - si è verificata l'eccezione Non è stato impostato un messaggio di HELP
+sm.ciscoop.stdlibs.baseutils.exceptions.CISException: Non è stato impostato un messaggio di HELP
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:141)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+
+2022-08-30 16:35:38|                    |ERROR| - si è verificata l'eccezione Non è stato impostato un messaggio di HELP
+sm.ciscoop.stdlibs.baseutils.exceptions.CISException: Non è stato impostato un messaggio di HELP
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:141)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+
+2022-08-30 16:36:43|                    |ERROR|Errore imprevisto in gestione include
+org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:50)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 16:36:43|                    |ERROR|Errore in fase di PreProcessing
+sm.ciscoop.stdreport.main.PreprocessingException: Errore in gestione include: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1635)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:50)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+Caused by: org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	... 7 more
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 16:59:37|                    |ERROR|Errore imprevisto in gestione include
+org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:50)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 16:59:37|                    |ERROR|Errore in fase di PreProcessing
+sm.ciscoop.stdreport.main.PreprocessingException: Errore in gestione include: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1635)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:50)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+Caused by: org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	... 7 more
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 17:40:28|                    |ERROR|Errore imprevisto in gestione include
+org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:53)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:92)
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 17:40:28|                    |ERROR|Errore in fase di PreProcessing
+sm.ciscoop.stdreport.main.PreprocessingException: Errore in gestione include: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1635)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:53)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:92)
+Caused by: org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	... 7 more
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 17:44:30|                    |ERROR|Errore in fase di Generation
+sm.ciscoop.stdreport.main.output.impl.GenerateException: Il report risulta vuoto
+	at sm.ciscoop.stdreport.main.engine.ReportLoader.generate(ReportLoader.java:684)
+	at sm.ciscoop.stdreport.main.StdReport.generaOutput(StdReport.java:1905)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1443)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:53)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:92)

@@ -1,0 +1,20 @@
+2022-08-30 16:35:58|                    |INFO|BEGIN_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||begin transaction
+2022-08-30 16:50:24|                    |INFO|BEGIN_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||begin transaction
+2022-08-30 16:59:37|                    |INFO|ROLLBACK_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||rollback transaction
+2022-08-30 17:07:35|                    |INFO|BEGIN_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||begin transaction
+2022-08-30 17:09:47|                    |INFO|BEGIN_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||begin transaction
+2022-08-30 17:40:17|                    |INFO|BEGIN_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||begin transaction
+2022-08-30 17:40:28|                    |INFO|ROLLBACK_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||rollback transaction
+2022-08-30 17:41:19|                    |INFO|BEGIN_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||begin transaction
+2022-08-30 17:44:17|                    |INFO|BEGIN_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||begin transaction
+2022-08-30 17:44:30|                    |INFO|ROLLBACK_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||rollback transaction
+2022-08-30 17:46:47|                    |INFO|BEGIN_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||begin transaction
+2022-08-30 17:49:09|                    |ERROR|BEGIN_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||begin trans|JBB.beginTrans(): transazione già aperta !
+sm.ciscoop.jbb.JBBException: JBB.beginTrans(): transazione già aperta !
+	at sm.ciscoop.jbb.JBB.beginTrans(JBB.java:1843)
+	at sm.ciscoop.jbb.JBB.beginTrans(JBB.java:1819)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:44)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(Unknown Source)
+2022-08-30 17:49:09|                    |INFO|ROLLBACK_TRANSACTION|124c278f|elrond.ciscoop.cis|10.11.9.116|preno|paride|0ms||rollback transaction

@@ -38,7 +38,7 @@ public class ReportGiorno extends AppReportConfigurator {
 	@Override
 	public String getFileName() {
 		String szDesc = "";
-		szDesc = "StAutRevoca_"; // + _annoprot + "_" + _nrprot;
+		szDesc = "StRiepilogoMensile_"; // + _annoprot + "_" + _nrprot;
 		return szDesc + ".pdf";
 	}	
 	@Override

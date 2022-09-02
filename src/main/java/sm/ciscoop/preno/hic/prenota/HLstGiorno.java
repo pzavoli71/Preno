@@ -3,6 +3,9 @@ package sm.ciscoop.preno.hic.prenota;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
 import enumerati.EnumAR;
 import sm.ciscoop.pdc.*;
 import sm.ciscoop.preno.pdc.prenota.*;
@@ -16,10 +19,16 @@ import sm.ciscoop.servlet.OpRes;
 import sm.ciscoop.servlet.Passo;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.util.*;
 
 	
@@ -282,19 +291,88 @@ import sm.ciscoop.dmc.DMCDB;
 */
   
   public static void sendToTelegram() {
+	  
+	  try {
+      String urlString = "https://api.telegram.org/bot%s/sendDocument";
+
+      //Add Telegram token (given Token is fake)
+      String apiToken = "5317668012:AAEWtqw2GS2ELcqz3cuNT2LFrkZQovqpM7E";
+    
+      //Add chatId (given chatId is fake)
+      String chatId = "@TrasportiCalcio";
+      Date dt = new Date();
+      String text = "Hello world 4 " + dt;
+
+      urlString = String.format(urlString, apiToken);
+	  
+	  String url = urlString; //"https://api.telegram.org/bot%s/sendDocument";	  
+	  String charset = "UTF-8";
+	  String param = "@TrasportiCalcio";
+	  File binaryFile = new File("c:/temp/st2008.pdf");
+	  String boundary = Long.toHexString(System.currentTimeMillis()); // Just generate some unique random value.
+	  String CRLF = "\r\n"; // Line separator required by multipart/form-data.
+
+	  URLConnection connection = new URL(url).openConnection();
+	  connection.setDoOutput(true);
+	  connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+	  try (
+	      OutputStream output = connection.getOutputStream();
+	      PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true);
+	  ) {
+	      // Send normal param.
+	      writer.append("--" + boundary).append(CRLF);
+	      writer.append("Content-Disposition: form-data; name=\"chat_id\"").append(CRLF);
+	      writer.append("Content-Type: text/plain; charset=" + charset).append(CRLF);
+	      writer.append(CRLF).append(param).append(CRLF).flush();
+
+	      writer.append("--" + boundary).append(CRLF);
+	      writer.append("Content-Disposition: form-data; name=\"text\"").append(CRLF);
+	      writer.append("Content-Type: text/plain; charset=" + charset).append(CRLF);
+	      writer.append(CRLF).append("Ti invio il documento dei 2008").append(CRLF).flush();
+	      
+	      // Send text file.
+	      /*writer.append("--" + boundary).append(CRLF);
+	      writer.append("Content-Disposition: form-data; name=\"textFile\"; filename=\"" + textFile.getName() + "\"").append(CRLF);
+	      writer.append("Content-Type: text/plain; charset=" + charset).append(CRLF); // Text file itself must be saved in this charset!
+	      writer.append(CRLF).flush();
+	      Files.copy(textFile.toPath(), output);
+	      output.flush(); // Important before continuing with writer!
+	      writer.append(CRLF).flush(); // CRLF is important! It indicates end of boundary.
+	*/
+	      // Send binary file.
+	      writer.append("--" + boundary).append(CRLF);
+	      writer.append("Content-Disposition: form-data; name=\"document\"; filename=\"" + binaryFile.getName() + "\"").append(CRLF);
+	      writer.append("Content-Type: " + URLConnection.guessContentTypeFromName(binaryFile.getName())).append(CRLF);
+	      writer.append("Content-Transfer-Encoding: binary").append(CRLF);
+	      writer.append(CRLF).flush();
+	      Files.copy(binaryFile.toPath(), output);
+	      output.flush(); // Important before continuing with writer!
+	      writer.append(CRLF).flush(); // CRLF is important! It indicates end of boundary.
+
+	      // End of multipart/form-data.
+	      writer.append("--" + boundary + "--").append(CRLF).flush();
+	  }
+
+	  // Request is lazily fired whenever you need to obtain information about response.
+	  int responseCode = ((HttpURLConnection) connection).getResponseCode();
+	  System.out.println(responseCode); // Should be 200	      
+	  } catch(Exception eee ) {
+		  eee.printStackTrace();
+	  }
+	  /*
       String urlString = "https://api.telegram.org/bot%s/sendMessage?chat_id=%s&text=%s";
 
       //Add Telegram token (given Token is fake)
       String apiToken = "5317668012:AAEWtqw2GS2ELcqz3cuNT2LFrkZQovqpM7E";
     
       //Add chatId (given chatId is fake)
-      //String chatId = "728936845";
       String chatId = "@TrasportiCalcio";
       Date dt = new Date();
       String text = "Hello world 4 " + dt;
 
       urlString = String.format(urlString, apiToken, chatId, text);
-/*
+
       try {
           URL url = new URL(urlString);
           URLConnection conn = url.openConnection();
@@ -302,7 +380,6 @@ import sm.ciscoop.dmc.DMCDB;
           is.close();
       } catch (IOException e) {
           e.printStackTrace();
-      }
-      */
+      }*/
   }  
 }

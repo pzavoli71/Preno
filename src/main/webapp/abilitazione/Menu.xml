@@ -47,8 +47,14 @@
 	  	
 		<Voce funzione="HLstTipoTrasporto" href="/prenota/HLstTipoTrasporto">Lista TRASPORTI</Voce>
 	  	
+	  	
 	  	<!-- Voce funzione="HSLstPrenoGiorno" href="/prenota/HSLstPrenoGiorno?MTipo=L&amp;MPasso=2">Lista Prenotazioni</Voce>
 	  	<Voce funzione="HSLstRagazzo" href="/prenota/HSLstRagazzo?MTipo=L&amp;MPasso=2">Lista ragazzi</Voce-->
-	</Menu>  
+	</Menu>
+	<Menu nome="Esami" funzione="Esami" forzaAbilitato="false">
+		<Voce funzione="HSLstQuiz" href="/patente/HSLstQuiz">Lista Quiz</Voce>
+	
+	</Menu>
+	  
   </LstMenu>
 </DOCUMENTO>

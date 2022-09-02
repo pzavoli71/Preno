@@ -26,6 +26,11 @@
 			<version>${cis.stdreport.version}</version>
 		</dependency>
     <dependency>
+        <groupId>org.telegram</groupId>
+        <artifactId>telegrambots</artifactId>
+        <version>6.1.0</version>
+    </dependency>		
+    <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-coyote</artifactId>
       <version>8.5.34</version>
@@ -247,9 +252,10 @@
                 <artifactItem>
                   <groupId>sm.ciscoop.fonts</groupId>
                   <artifactId>commons</artifactId>
-                  <version>1.0.0-SNAPSHOT</version>
+                  <version>1.0.1-SNAPSHOT</version>
                   <type>zip</type>
-                  <outputDirectory>${cis.war.app.resources.dir}/stampe</outputDirectory>
+                  <!-- outputDirectory>${cis.war.app.resources.dir}/stampe</outputDirectory-->
+                  <outputDirectory>c:/java/gits/preno/target/classes/sm/ciscoop/preno/stampe</outputDirectory>
                 </artifactItem>
                 <artifactItem>
                   <groupId>sm.ciscoop.themes</groupId>

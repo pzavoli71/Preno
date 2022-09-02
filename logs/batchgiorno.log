@@ -1,0 +1,563 @@
+2022-08-30 16:29:43|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 16:29:43|                    |INFO|Inizio elab
+2022-08-30 16:29:43|                    |INFO|dirLog.mkdirs();
+2022-08-30 16:29:43|                    |INFO|initFileProperties
+2022-08-30 16:29:43|                    |INFO|DOPO initFileProperties
+2022-08-30 16:29:43|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 16:29:43|                    |ERROR| - si è verificata l'eccezione Non è stato impostato un messaggio di HELP
+sm.ciscoop.stdlibs.baseutils.exceptions.CISException: Non è stato impostato un messaggio di HELP
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:141)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+
+2022-08-30 16:29:43|                    |INFO|Elaborazione 'sm.ciscoop.preno.batch.giorno.BatchGiorno' TERMINATA!!!
+in: 0 secondi
+###############################################
+
+
+2022-08-30 16:29:43|                    |INFO|Mail non spedita perché specificato invio solo su esito negativo
+2022-08-30 16:30:05|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 16:30:05|                    |INFO|Inizio elab
+2022-08-30 16:30:05|                    |INFO|dirLog.mkdirs();
+2022-08-30 16:30:05|                    |INFO|initFileProperties
+2022-08-30 16:30:05|                    |INFO|DOPO initFileProperties
+2022-08-30 16:30:05|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 16:30:05|                    |ERROR| - si è verificata l'eccezione Non è stato impostato un messaggio di HELP
+sm.ciscoop.stdlibs.baseutils.exceptions.CISException: Non è stato impostato un messaggio di HELP
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:141)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+
+2022-08-30 16:30:05|                    |INFO|Elaborazione 'sm.ciscoop.preno.batch.giorno.BatchGiorno' TERMINATA!!!
+in: 1 secondi
+###############################################
+
+
+2022-08-30 16:30:05|                    |INFO|Mail non spedita perché specificato invio solo su esito negativo
+2022-08-30 16:33:44|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 16:33:44|                    |INFO|Inizio elab
+2022-08-30 16:33:44|                    |INFO|dirLog.mkdirs();
+2022-08-30 16:33:44|                    |INFO|initFileProperties
+2022-08-30 16:33:44|                    |INFO|DOPO initFileProperties
+2022-08-30 16:33:44|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 16:35:38|                    |ERROR| - si è verificata l'eccezione Non è stato impostato un messaggio di HELP
+sm.ciscoop.stdlibs.baseutils.exceptions.CISException: Non è stato impostato un messaggio di HELP
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:141)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+
+2022-08-30 16:35:38|                    |INFO|Elaborazione 'sm.ciscoop.preno.batch.giorno.BatchGiorno' TERMINATA!!!
+in: 115 secondi
+###############################################
+
+
+2022-08-30 16:35:38|                    |INFO|Mail non spedita perché specificato invio solo su esito negativo
+2022-08-30 16:35:46|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 16:35:46|                    |INFO|Inizio elab
+2022-08-30 16:35:46|                    |INFO|dirLog.mkdirs();
+2022-08-30 16:35:46|                    |INFO|initFileProperties
+2022-08-30 16:35:46|                    |INFO|DOPO initFileProperties
+2022-08-30 16:35:46|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 16:35:54|                    |INFO|initErroriApplicativo
+2022-08-30 16:35:54|                    |INFO|DOPO initErroriApplicativo
+2022-08-30 16:35:54|                    |INFO|
+
+
+---------------------------------------------------------- 
+INIZIO ELABORAZIONE 'sm.ciscoop.preno.batch.giorno.BatchGiorno' del 30-08-2022 16:35:46
+  versione batch: 1.0.0
+2022-08-30 16:35:54|                    |INFO|Parametri passati: 
+args[0] ===> -e 
+
+2022-08-30 16:35:54|                    |INFO|Lanciato con switch -e: 
+Lancio esecuzione batch...
+2022-08-30 16:35:57|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 16:36:37|                    |INFO|Fase di PreProcessing...
+2022-08-30 16:36:43|                    |ERROR|Errore imprevisto in gestione include
+org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:50)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 16:36:43|                    |ERROR|Errore in fase di PreProcessing
+sm.ciscoop.stdreport.main.PreprocessingException: Errore in gestione include: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1635)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:50)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+Caused by: org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	... 7 more
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 16:50:16|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 16:50:16|                    |INFO|Inizio elab
+2022-08-30 16:50:16|                    |INFO|dirLog.mkdirs();
+2022-08-30 16:50:16|                    |INFO|initFileProperties
+2022-08-30 16:50:16|                    |INFO|DOPO initFileProperties
+2022-08-30 16:50:16|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 16:50:20|                    |INFO|initErroriApplicativo
+2022-08-30 16:50:20|                    |INFO|DOPO initErroriApplicativo
+2022-08-30 16:50:20|                    |INFO|
+
+
+---------------------------------------------------------- 
+INIZIO ELABORAZIONE 'sm.ciscoop.preno.batch.giorno.BatchGiorno' del 30-08-2022 16:50:16
+  versione batch: 1.0.0
+2022-08-30 16:50:20|                    |INFO|Parametri passati: 
+args[0] ===> -e 
+
+2022-08-30 16:50:20|                    |INFO|Lanciato con switch -e: 
+Lancio esecuzione batch...
+2022-08-30 16:50:24|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 16:50:25|                    |INFO|Fase di PreProcessing...
+2022-08-30 16:59:37|                    |ERROR|Errore imprevisto in gestione include
+org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:50)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 16:59:37|                    |ERROR|Errore in fase di PreProcessing
+sm.ciscoop.stdreport.main.PreprocessingException: Errore in gestione include: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1635)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:50)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:89)
+Caused by: org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	... 7 more
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 16:59:37|                    |INFO|Errore in esecuzione.Errore in gestione include: Can't find include file 'stdcolors.xml', line 5 
+2022-08-30 16:59:37|                    |INFO|Tempo di esecuzione: 9 min  17 sec
+2022-08-30 16:59:37|                    |INFO|Elaborazione 'sm.ciscoop.preno.batch.giorno.BatchGiorno' TERMINATA!!!
+in: 561 secondi
+###############################################
+
+
+2022-08-30 16:59:37|                    |INFO|Mail non spedita perché specificato invio solo su esito negativo
+2022-08-30 17:07:30|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 17:07:30|                    |INFO|Inizio elab
+2022-08-30 17:07:30|                    |INFO|dirLog.mkdirs();
+2022-08-30 17:07:30|                    |INFO|initFileProperties
+2022-08-30 17:07:30|                    |INFO|DOPO initFileProperties
+2022-08-30 17:07:30|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 17:07:33|                    |INFO|initErroriApplicativo
+2022-08-30 17:07:33|                    |INFO|DOPO initErroriApplicativo
+2022-08-30 17:07:33|                    |INFO|
+
+
+---------------------------------------------------------- 
+INIZIO ELABORAZIONE 'sm.ciscoop.preno.batch.giorno.BatchGiorno' del 30-08-2022 17:07:29
+  versione batch: 1.0.0
+2022-08-30 17:07:33|                    |INFO|Parametri passati: 
+args[0] ===> -e 
+
+2022-08-30 17:07:33|                    |INFO|Lanciato con switch -e: 
+Lancio esecuzione batch...
+2022-08-30 17:07:35|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 17:07:35|                    |INFO|Fase di PreProcessing...
+2022-08-30 17:09:43|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 17:09:43|                    |INFO|Inizio elab
+2022-08-30 17:09:43|                    |INFO|dirLog.mkdirs();
+2022-08-30 17:09:43|                    |INFO|initFileProperties
+2022-08-30 17:09:43|                    |INFO|DOPO initFileProperties
+2022-08-30 17:09:43|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 17:09:46|                    |INFO|initErroriApplicativo
+2022-08-30 17:09:46|                    |INFO|DOPO initErroriApplicativo
+2022-08-30 17:09:46|                    |INFO|
+
+
+---------------------------------------------------------- 
+INIZIO ELABORAZIONE 'sm.ciscoop.preno.batch.giorno.BatchGiorno' del 30-08-2022 17:09:40
+  versione batch: 1.0.0
+2022-08-30 17:09:46|                    |INFO|Parametri passati: 
+args[0] ===> -e 
+
+2022-08-30 17:09:46|                    |INFO|Lanciato con switch -e: 
+Lancio esecuzione batch...
+2022-08-30 17:09:47|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 17:40:10|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 17:40:10|                    |INFO|Inizio elab
+2022-08-30 17:40:10|                    |INFO|dirLog.mkdirs();
+2022-08-30 17:40:10|                    |INFO|initFileProperties
+2022-08-30 17:40:10|                    |INFO|DOPO initFileProperties
+2022-08-30 17:40:10|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 17:40:13|                    |INFO|initErroriApplicativo
+2022-08-30 17:40:13|                    |INFO|DOPO initErroriApplicativo
+2022-08-30 17:40:13|                    |INFO|
+
+
+---------------------------------------------------------- 
+INIZIO ELABORAZIONE 'sm.ciscoop.preno.batch.giorno.BatchGiorno' del 30-08-2022 17:40:10
+  versione batch: 1.0.0
+2022-08-30 17:40:13|                    |INFO|Parametri passati: 
+args[0] ===> -e 
+
+2022-08-30 17:40:13|                    |INFO|Lanciato con switch -e: 
+Lancio esecuzione batch...
+2022-08-30 17:40:17|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 17:40:21|                    |INFO|Fase di PreProcessing...
+2022-08-30 17:40:28|                    |ERROR|Errore imprevisto in gestione include
+org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:53)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:92)
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 17:40:28|                    |ERROR|Errore in fase di PreProcessing
+sm.ciscoop.stdreport.main.PreprocessingException: Errore in gestione include: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1635)
+	at sm.ciscoop.stdreport.main.StdReport.preProcessing(StdReport.java:1552)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1376)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:53)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:92)
+Caused by: org.xml.sax.SAXException: Can't find include file 'stdcolors.xml', line 5 
+sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:195)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:103)
+	at sm.ciscoop.stdreport.main.validation.XMLutil.saxParserValidation(XMLutil.java:49)
+	at sm.ciscoop.stdreport.main.StdReport.substituteInclude(StdReport.java:1641)
+	at sm.ciscoop.stdreport.main.StdReport.handleInclude(StdReport.java:1622)
+	... 7 more
+Caused by: sm.ciscoop.stdreport.main.validation.ValidateException: Can't find include file 'stdcolors.xml', line 5 
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.getIncludeFileContent(XMLIncludeValidationHandler.java:449)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.processInclude(XMLIncludeValidationHandler.java:359)
+	at sm.ciscoop.stdreport.main.validation.XMLIncludeValidationHandler.startElement(XMLIncludeValidationHandler.java:189)
+	... 23 more
+2022-08-30 17:40:28|                    |INFO|Errore in esecuzione.Errore in gestione include: Can't find include file 'stdcolors.xml', line 5 
+2022-08-30 17:40:28|                    |INFO|Tempo di esecuzione: 14,554 sec
+2022-08-30 17:40:28|                    |INFO|Elaborazione 'sm.ciscoop.preno.batch.giorno.BatchGiorno' TERMINATA!!!
+in: 18 secondi
+###############################################
+
+
+2022-08-30 17:40:28|                    |INFO|Mail non spedita perché specificato invio solo su esito negativo
+2022-08-30 17:41:14|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 17:41:14|                    |INFO|Inizio elab
+2022-08-30 17:41:14|                    |INFO|dirLog.mkdirs();
+2022-08-30 17:41:14|                    |INFO|initFileProperties
+2022-08-30 17:41:14|                    |INFO|DOPO initFileProperties
+2022-08-30 17:41:14|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 17:41:16|                    |INFO|initErroriApplicativo
+2022-08-30 17:41:16|                    |INFO|DOPO initErroriApplicativo
+2022-08-30 17:41:16|                    |INFO|
+
+
+---------------------------------------------------------- 
+INIZIO ELABORAZIONE 'sm.ciscoop.preno.batch.giorno.BatchGiorno' del 30-08-2022 17:41:14
+  versione batch: 1.0.0
+2022-08-30 17:41:16|                    |INFO|Parametri passati: 
+args[0] ===> -e 
+
+2022-08-30 17:41:16|                    |INFO|Lanciato con switch -e: 
+Lancio esecuzione batch...
+2022-08-30 17:41:19|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 17:41:21|                    |INFO|Fase di PreProcessing...
+2022-08-30 17:44:12|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 17:44:12|                    |INFO|Inizio elab
+2022-08-30 17:44:12|                    |INFO|dirLog.mkdirs();
+2022-08-30 17:44:12|                    |INFO|initFileProperties
+2022-08-30 17:44:12|                    |INFO|DOPO initFileProperties
+2022-08-30 17:44:12|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 17:44:16|                    |INFO|initErroriApplicativo
+2022-08-30 17:44:16|                    |INFO|DOPO initErroriApplicativo
+2022-08-30 17:44:16|                    |INFO|
+
+
+---------------------------------------------------------- 
+INIZIO ELABORAZIONE 'sm.ciscoop.preno.batch.giorno.BatchGiorno' del 30-08-2022 17:44:12
+  versione batch: 1.0.0
+2022-08-30 17:44:16|                    |INFO|Parametri passati: 
+args[0] ===> -e 
+
+2022-08-30 17:44:16|                    |INFO|Lanciato con switch -e: 
+Lancio esecuzione batch...
+2022-08-30 17:44:17|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 17:44:20|                    |INFO|Fase di PreProcessing...
+2022-08-30 17:44:28|                    |INFO|Fase di Validation...
+2022-08-30 17:44:29|                    |INFO|Fase di DataLoading...
+2022-08-30 17:44:29|                    |INFO|Fase di Generation...
+2022-08-30 17:44:30|                    |ERROR|Errore in fase di Generation
+sm.ciscoop.stdreport.main.output.impl.GenerateException: Il report risulta vuoto
+	at sm.ciscoop.stdreport.main.engine.ReportLoader.generate(ReportLoader.java:684)
+	at sm.ciscoop.stdreport.main.StdReport.generaOutput(StdReport.java:1905)
+	at sm.ciscoop.stdreport.main.StdReport.createReport(StdReport.java:1443)
+	at sm.ciscoop.transportreport.configurator.StdReportConfigurator.createReport(StdReportConfigurator.java:973)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.lanciaBatch(BatchGiorno.java:53)
+	at sm.ciscoop.util.batch.StdBatch.eseguiBatch(StdBatch.java:438)
+	at sm.ciscoop.util.batch.StdBatch.esegui(StdBatch.java:176)
+	at sm.ciscoop.preno.batch.giorno.BatchGiorno.main(BatchGiorno.java:92)
+2022-08-30 17:44:30|                    |INFO|Errore in esecuzione.Il report risulta vuoto
+2022-08-30 17:44:30|                    |INFO|Tempo di esecuzione: 14,233 sec
+2022-08-30 17:44:30|                    |INFO|Elaborazione 'sm.ciscoop.preno.batch.giorno.BatchGiorno' TERMINATA!!!
+in: 18 secondi
+###############################################
+
+
+2022-08-30 17:44:30|                    |INFO|Mail non spedita perché specificato invio solo su esito negativo
+2022-08-30 17:46:43|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 17:46:43|                    |INFO|Inizio elab
+2022-08-30 17:46:43|                    |INFO|dirLog.mkdirs();
+2022-08-30 17:46:43|                    |INFO|initFileProperties
+2022-08-30 17:46:43|                    |INFO|DOPO initFileProperties
+2022-08-30 17:46:43|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 17:46:45|                    |INFO|initErroriApplicativo
+2022-08-30 17:46:45|                    |INFO|DOPO initErroriApplicativo
+2022-08-30 17:46:45|                    |INFO|
+
+
+---------------------------------------------------------- 
+INIZIO ELABORAZIONE 'sm.ciscoop.preno.batch.giorno.BatchGiorno' del 30-08-2022 17:46:43
+  versione batch: 1.0.0
+2022-08-30 17:46:45|                    |INFO|Parametri passati: 
+args[0] ===> -e 
+
+2022-08-30 17:46:45|                    |INFO|Lanciato con switch -e: 
+Lancio esecuzione batch...
+2022-08-30 17:46:47|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 17:46:49|                    |INFO|Fase di PreProcessing...
+2022-08-30 17:46:55|                    |INFO|Fase di Validation...
+2022-08-30 17:47:01|                    |INFO|Fase di DataLoading...
+2022-08-30 17:47:03|                    |INFO|Fase di Generation...
+2022-08-30 17:47:38|                    |INFO|Cancellazione di C:\Users\PARIDE~1.CIS\AppData\Local\Temp\ReportOrig_lE344.xml riuscita.
+2022-08-30 17:47:38|                    |INFO|Cancellazione di C:\Users\PARIDE~1.CIS\AppData\Local\Temp\palP7MxDBxC.xml riuscita.
+2022-08-30 17:47:38|                    |INFO|Tempo totale di caricamento: #subquery 0, time 0 ms
+2022-08-30 17:47:38|                    |INFO|Creazione report C:\Users\PARIDE~1.CIS\AppData\Local\Temp\StRiepilogoMensile_.pdf terminata.
+       PreProcessing: 6,193 secs
+          Validation: 5,418 secs
+         DataLoading: 2,368 secs
+         EndOfReport: 35,092 secs
+        Tempo TOTALE: 49,071 secs
+2022-08-30 17:49:09|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 17:49:09|                    |INFO|Errore in esecuzione.JBB.beginTrans(): transazione già aperta !
+2022-08-30 17:49:09|                    |INFO|Tempo di esecuzione: 2 min  23 sec
+2022-08-30 17:49:09|                    |INFO|Elaborazione 'sm.ciscoop.preno.batch.giorno.BatchGiorno' TERMINATA!!!
+in: 145 secondi
+###############################################
+
+
+2022-08-30 17:49:09|                    |INFO|Mail non spedita perché specificato invio solo su esito negativo
+2022-08-30 17:49:34|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 17:49:34|                    |INFO|Inizio elab
+2022-08-30 17:49:34|                    |INFO|dirLog.mkdirs();
+2022-08-30 17:49:34|                    |INFO|initFileProperties
+2022-08-30 17:49:34|                    |INFO|DOPO initFileProperties
+2022-08-30 17:49:34|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 17:49:36|                    |INFO|initErroriApplicativo
+2022-08-30 17:49:36|                    |INFO|DOPO initErroriApplicativo
+2022-08-30 17:49:36|                    |INFO|
+
+
+---------------------------------------------------------- 
+INIZIO ELABORAZIONE 'sm.ciscoop.preno.batch.giorno.BatchGiorno' del 30-08-2022 17:49:33
+  versione batch: 1.0.0
+2022-08-30 17:49:36|                    |INFO|Parametri passati: 
+args[0] ===> -e 
+
+2022-08-30 17:49:36|                    |INFO|Lanciato con switch -e: 
+Lancio esecuzione batch...
+2022-08-30 17:49:38|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 17:49:41|                    |INFO|Fase di PreProcessing...
+2022-08-30 17:49:41|                    |INFO|Fase di Validation...
+2022-08-30 17:49:41|                    |INFO|Fase di DataLoading...
+2022-08-30 17:49:41|                    |INFO|Fase di Generation...
+2022-08-30 17:49:43|                    |INFO|Cancellazione di C:\Users\PARIDE~1.CIS\AppData\Local\Temp\ReportOrig_1bF8m.xml riuscita.
+2022-08-30 17:49:43|                    |INFO|Cancellazione di C:\Users\PARIDE~1.CIS\AppData\Local\Temp\palkuO62pMM.xml riuscita.
+2022-08-30 17:49:43|                    |INFO|Tempo totale di caricamento: #subquery 0, time 0 ms
+2022-08-30 17:49:43|                    |INFO|Creazione report C:\Users\PARIDE~1.CIS\AppData\Local\Temp\StRiepilogoMensile_.pdf terminata.
+       PreProcessing: 0,464 secs
+          Validation: 0,211 secs
+         DataLoading: 0,077 secs
+         EndOfReport: 1,212 secs
+        Tempo TOTALE: 1,964 secs
+2022-08-30 17:51:17|                    |INFO|LOG4J CONFIGURATION|Impostata modalità log=DEBUG
+
+2022-08-30 17:51:17|                    |INFO|Inizio elab
+2022-08-30 17:51:17|                    |INFO|dirLog.mkdirs();
+2022-08-30 17:51:17|                    |INFO|initFileProperties
+2022-08-30 17:51:17|                    |INFO|DOPO initFileProperties
+2022-08-30 17:51:17|                    |INFO|Pulizia di eventuali logs rimasti: sm.ciscoop.preno.batch.giorno.BatchGiorno@17776a8
+2022-08-30 17:51:19|                    |INFO|initErroriApplicativo
+2022-08-30 17:51:19|                    |INFO|DOPO initErroriApplicativo
+2022-08-30 17:51:19|                    |INFO|
+
+
+---------------------------------------------------------- 
+INIZIO ELABORAZIONE 'sm.ciscoop.preno.batch.giorno.BatchGiorno' del 30-08-2022 17:51:16
+  versione batch: 1.0.0
+2022-08-30 17:51:19|                    |INFO|Parametri passati: 
+args[0] ===> -e 
+
+2022-08-30 17:51:19|                    |INFO|Lanciato con switch -e: 
+Lancio esecuzione batch...
+2022-08-30 17:51:20|                    |INFO|HOST del db preno: elrond.ciscoop.cis
+2022-08-30 17:51:22|                    |INFO|Fase di PreProcessing...
+2022-08-30 17:51:23|                    |INFO|Fase di Validation...
+2022-08-30 17:51:23|                    |INFO|Fase di DataLoading...
+2022-08-30 17:51:23|                    |INFO|Fase di Generation...
+2022-08-30 17:51:24|                    |INFO|Cancellazione di C:\Users\PARIDE~1.CIS\AppData\Local\Temp\ReportOrig_4UhQ3.xml riuscita.
+2022-08-30 17:51:24|                    |INFO|Cancellazione di C:\Users\PARIDE~1.CIS\AppData\Local\Temp\palmQnbz26Y.xml riuscita.
+2022-08-30 17:51:24|                    |INFO|Tempo totale di caricamento: #subquery 0, time 0 ms
+2022-08-30 17:51:24|                    |INFO|Creazione report C:\Users\PARIDE~1.CIS\AppData\Local\Temp\StRiepilogoMensile_.pdf terminata.
+       PreProcessing: 0,465 secs
+          Validation: 0,219 secs
+         DataLoading: 0,079 secs
+         EndOfReport: 1,226 secs
+        Tempo TOTALE: 1,989 secs
+2022-08-30 17:51:27|                    |INFO|Tempo di esecuzione: 8,526 sec
+2022-08-30 17:51:27|                    |INFO|Elaborazione 'sm.ciscoop.preno.batch.giorno.BatchGiorno' TERMINATA!!!
+in: 10 secondi
+###############################################
+
+
+2022-08-30 17:51:27|                    |INFO|Mail non spedita perché specificato invio solo su esito negativo
