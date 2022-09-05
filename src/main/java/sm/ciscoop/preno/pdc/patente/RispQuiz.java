@@ -9,6 +9,7 @@ import sm.ciscoop.preno.pdc.AppPDC;
 import sm.ciscoop.preno.pdc.patente.Domanda;
 import sm.ciscoop.preno.pdc.patente.DomandaQuiz;
 import sm.ciscoop.jbb.IJoinInfo;
+import sm.ciscoop.jbb.JBB;
 
 
 
@@ -36,6 +37,7 @@ import sm.ciscoop.jbb.IJoinInfo;
 		[IdRispTest] [int] IDENTITY(1,1) ,
 		[RespVero] [int] DEFAULT 0 NOT NULL ,
 		[RespFalso] [int] DEFAULT 0 NOT NULL ,
+		[bControllata] [int] DEFAULT 0 NOT NULL ,
 		[EsitoRisp] [int] DEFAULT 0 NOT NULL ,
 		
 		[ultagg] [datetime] DEFAULT (getdate()) NOT NULL,
@@ -92,6 +94,12 @@ public class RispQuiz extends AppPDC {
   public static final String CSZcol_RespFalso = "RespFalso";
   public static final String CSZds_RespFalso = "Resp Falso";
   private BoolAttr  c_RespFalso;
+ 	
+  
+  /**  */
+  public static final String CSZcol_bControllata = "bControllata";
+  public static final String CSZds_bControllata = "bControllata";
+  private BoolAttr  c_bControllata;
  	
   
   /**  */
@@ -233,6 +241,11 @@ public class RispQuiz extends AppPDC {
    c_RespFalso.setUseDefaultIfNull(true);
 
     
+    // bControllata
+    c_bControllata = attr.addBoolAttr(CSZcol_bControllata, CSZds_bControllata, CSZ_DBTable, false);
+   c_bControllata.setUseDefaultIfNull(true);
+
+    
     // EsitoRisp
     c_EsitoRisp = attr.addBoolAttr(CSZcol_EsitoRisp, CSZds_EsitoRisp, CSZ_DBTable, false);
    c_EsitoRisp.setUseDefaultIfNull(true);
@@ -258,6 +271,8 @@ public class RispQuiz extends AppPDC {
    
       // rel Domanda
       rel = addRelazione(CSZrel_Domanda, Relazione.RELAZ_1, Domanda.class.getName());
+      rel.addAlias("IdDomanda", "IdDomandaRisp");
+      rel.setDxTableAlias("DomandaRisp");
       rel.setEnabled(false);
       
 
@@ -348,6 +363,16 @@ public class RispQuiz extends AppPDC {
 		return c_RespFalso;
 	}
 
+	public Boolean getbControllata() {
+		return c_bControllata.getValue();
+	}
+	public void setbControllata(Boolean val) {
+		c_bControllata.setValue(val);
+	}
+	public BoolAttr getbControllata_attr() {
+		return c_bControllata;
+	}
+
 	public Boolean getEsitoRisp() {
 		return c_EsitoRisp.getValue();
 	}
@@ -383,6 +408,16 @@ public class RispQuiz extends AppPDC {
     if (bOK) {
       if ( getRespFalso() && getRespVero()) {
     	  addMessageError("Devi scegliere solo una risposta");
+    	  return false;
+      }
+      if ( isInInserimento())
+    	  return true;
+      JBB jbb = getJBB();
+      String ls = "select count(*) FROM " + Quiz.CSZ_DBTable + " q INNER JOIN " + DomandaQuiz.CSZ_DBTable + " d ON ";
+      ls += " d.IdQuiz = q.IdQuiz WHERE d.IdDomandaTest = " + getIdDomandaTest();
+      ls += " AND (q.DtFineTest IS NOT NULL or q.dtiniziotest is null)";
+      if ( jbb.getCount(ls) > 0 ) {
+    	  addMessageError("Il test è già terminato. Impossibile aggiornare la risposta.");
     	  return false;
       }
     }

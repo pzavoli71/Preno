@@ -39,6 +39,9 @@ import java.util.Map;
 		[CdUtente] [int] DEFAULT 0 NOT NULL ,
 		[IdQuiz] [int] IDENTITY(1,1) ,
 		[DtCreazioneTest] [DateTime] ,
+		[DtInizioTest] [DateTime] ,
+		[EsitoTest] [int] DEFAULT 0 NOT NULL ,
+		[DtFineTest] [DateTime] ,
 		
 		[ultagg] [datetime] DEFAULT (getdate()) NOT NULL,
 		[utente] [varchar](20) DEFAULT '' NOT NULL,
@@ -82,6 +85,24 @@ public class Quiz extends AppPDC {
   public static final String CSZcol_DtCreazioneTest = "DtCreazioneTest";
   public static final String CSZds_DtCreazioneTest = "Dt CreazioneTest";
   private DateTimeAttr  c_DtCreazioneTest;
+ 	
+  
+  /**  */
+  public static final String CSZcol_DtInizioTest = "DtInizioTest";
+  public static final String CSZds_DtInizioTest = "Dt InizioTest";
+  private DateTimeAttr  c_DtInizioTest;
+ 	
+  
+  /** Risposte Esatte */
+  public static final String CSZcol_EsitoTest = "EsitoTest";
+  public static final String CSZds_EsitoTest = "Esito Test";
+  private IntAttr   c_EsitoTest;
+ 	
+  
+  /**  */
+  public static final String CSZcol_DtFineTest = "DtFineTest";
+  public static final String CSZds_DtFineTest = "Dt FineTest";
+  private DateTimeAttr  c_DtFineTest;
  	
   
   // =============================================================
@@ -210,6 +231,21 @@ public class Quiz extends AppPDC {
 
 
     
+    // DtInizioTest
+    c_DtInizioTest = attr.addDateTimeAttr(CSZcol_DtInizioTest, CSZds_DtInizioTest, CSZ_DBTable, false);
+
+
+    
+    // EsitoTest
+    c_EsitoTest = attr.addIntAttr(CSZcol_EsitoTest, CSZds_EsitoTest, CSZ_DBTable, false);
+
+
+    
+    // DtFineTest
+    c_DtFineTest = attr.addDateTimeAttr(CSZcol_DtFineTest, CSZds_DtFineTest, CSZ_DBTable, false);
+
+
+    
     return true;
   }
 
@@ -297,6 +333,36 @@ public class Quiz extends AppPDC {
 	}
 	public DateTimeAttr getDtCreazioneTest_attr() {
 		return c_DtCreazioneTest;
+	}
+
+	public Date getDtInizioTest() {
+		return c_DtInizioTest.getValue();
+	}
+	public void setDtInizioTest(Date val) {
+		c_DtInizioTest.setValue(val);
+	}
+	public DateTimeAttr getDtInizioTest_attr() {
+		return c_DtInizioTest;
+	}
+
+	public Integer getEsitoTest() {
+		return c_EsitoTest.getValue();
+	}
+	public void setEsitoTest(Integer val) {
+		c_EsitoTest.setValue(val);
+	}
+	public IntAttr getEsitoTest_attr() {
+		return c_EsitoTest;
+	}
+
+	public Date getDtFineTest() {
+		return c_DtFineTest.getValue();
+	}
+	public void setDtFineTest(Date val) {
+		c_DtFineTest.setValue(val);
+	}
+	public DateTimeAttr getDtFineTest_attr() {
+		return c_DtFineTest;
 	}
 
   /**

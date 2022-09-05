@@ -102,15 +102,17 @@ function richiestaComando(nomecomando, chiave, dati, href, callback) {
 	// che verranno riportati alla servlet come parametri.
 	//var valore = prompt('inserisci il comando per ',chiave);
 	dati['IdQuiz'] = chiave;
-	debugger;
 	return true;
 }
 
 // Funzione che gestisce il ritorno del comando
 function comandoTerminato(nomecomando, chiave, data) {
 	var errore = $('DOCUMENTO > ERRORE > USER', data).text();
-	debugger;
-	AppGlob.emettiErrore(errore);
+	if ( errore &amp;&amp; errore != '' &amp;&amp; errore != 'undefined') {
+		AppGlob.emettiErrore(errore, function() {
+			document.location.reload();
+		});
+	}
 }
 
 var ajaxrequest = null;
@@ -196,6 +198,13 @@ function rispondi(idrisptest, valore, tag) {
 		caricaRelazione(tag);
 	}).always(function(data) {
     	AppGlob.hideLoading();	
+    	debugger;
+		var errore = $('DOCUMENTO > ERRORE > USER', data).text();
+		if ( errore &amp;&amp; errore != '' &amp;&amp; errore != 'undefined') {
+			AppGlob.emettiErrore(errore, function() {
+				
+			});
+		}
 		caricaRelazione(tag);
 	});
 }
@@ -233,11 +242,12 @@ function rispondi(idrisptest, valore, tag) {
 		<th ></th>
 		<th data-nomecol='IdQuiz'>Id</th>
 
-		<th data-nomecol='CdUtente'>CdUtente</th>
-
-
 		<th data-nomecol='DtCreazioneTest'>Data creazione</th>
 
+		<th data-nomecol='DtCreazioneTest'>Inizio/Fine test</th>
+
+		<th data-nomecol='DtCreazioneTest'>Esito test</th>
+		
 		<th data-nomecol='DtCreazioneTest'></th>
 
 	</tr>
@@ -273,23 +283,35 @@ function rispondi(idrisptest, valore, tag) {
 		</td>
 		<td><xsl:value-of select="idquiz"/></td>
 
-		<td><xsl:value-of select="idutente"/></td>
-
-
 		<td><xsl:value-of select="dtcreazionetest"/></td>
+		<td><xsl:value-of select="dtiniziotest"/><br/><xsl:value-of select="dtfinetest"/></td>
+		<td align="center"><xsl:if test="dtfinetest != ''"><xsl:if test="esitotest &gt; -5">Superato <br/> (con <xsl:value-of select="-esitotest/@RAWVAL"/> errori)<br/><img style="height:60px;border:1px solid black" src="/preno/quiz/immagini/pollicioneinsu.jpg"/></xsl:if><xsl:if test="esitotest &lt; -4"><span style="font-weight:bold; color:red">Non Superato <br/>(<xsl:value-of select="-esitotest/@RAWVAL"/> errori)<br/><img style="height:60px;border:1px solid black" src="/preno/quiz/immagini/dito_medio.jpg"/></span></xsl:if></xsl:if></td>
 
 		<!-- Scommentare queste righe per avere comandi da eseguire su ogni riga -->
 		<!-- I comandi devono avere il permesso (su zTrans) del tipo  HLstElabCeliaci:ElaboraMeseSmac-->
 		<td align="right" class="bottoni_comando">
+			<xsl:if test="dtiniziotest != '' and dtfinetest = ''">
  		    <xsl:call-template name="linkComando">
 		    	<xsl:with-param name="href">/preno/patente/HSLstQuiz</xsl:with-param>
 		    	<xsl:with-param name="nomecomando">ConfermaTest</xsl:with-param>
 		    	<xsl:with-param name="chiave"><xsl:value-of select='idquiz'/></xsl:with-param>
 		    	<xsl:with-param name="ParamServlet">{MTipo:'L',MPasso:'2'}</xsl:with-param>
 				<xsl:with-param name="title">Conferma il test</xsl:with-param>
-				<xsl:with-param name="fa-class">fa-calculator</xsl:with-param>
+				<xsl:with-param name="text">Stop</xsl:with-param>
+				<xsl:with-param name="fa-class">fa-calendar-check-o</xsl:with-param>
 		    </xsl:call-template>
-
+		    </xsl:if>
+			<xsl:if test="dtiniziotest = ''">
+ 		    <xsl:call-template name="linkComando">
+		    	<xsl:with-param name="href">/preno/patente/HSLstQuiz</xsl:with-param>
+		    	<xsl:with-param name="nomecomando">IniziaTest</xsl:with-param>
+		    	<xsl:with-param name="chiave"><xsl:value-of select='idquiz'/></xsl:with-param>
+		    	<xsl:with-param name="ParamServlet">{MTipo:'L',MPasso:'2'}</xsl:with-param>
+				<xsl:with-param name="title">Inizia il test</xsl:with-param>
+				<xsl:with-param name="test">Start</xsl:with-param>
+				<xsl:with-param name="fa-class">fa-hourglass-start</xsl:with-param>
+		    </xsl:call-template>
+		    </xsl:if>
 	<!-- 
 			<a href="javascript:void(0)"  style="margin-left:1px; margin-right:5px;font-size:1.5em" onclick="AppGlob.eseguiComando('/preno/patente/HSLstQuiz', 'CreaPiattaforma', '{idquiz}', {{MTipo:'L',MPasso:'2'}}, richiestaComando, comandoTerminato)" title="Elabora il comando">
 				<i class="fa fa-calculator"></i>
@@ -339,21 +361,23 @@ function rispondi(idrisptest, valore, tag) {
 		<div class="titolorelaz"><a class="refresh_btn cis-button" href="javascript:void(0)" onclick="caricaRelazione(this)">
 		<i class="fa fa-refresh"/>
 		</a>
+		<!-- 
 		<xsl:call-template name = "ButtonHref" >
 			<xsl:with-param name="href">/preno/patente/HDomandaQuiz?MTipo=I&amp;MPasso=1&amp;IdQuiz=<xsl:value-of select="IdQuiz"/></xsl:with-param>
 			<xsl:with-param name="title">Aggiungi un DomandaQuiz</xsl:with-param>
 			<xsl:with-param name="fa-class">fa-plus-circle</xsl:with-param>
 			<xsl:with-param name="onunload">caricaRelazione(this.atag)</xsl:with-param>
 			<xsl:with-param name="caption">Gestione DomandaQuiz</xsl:with-param>
-		</xsl:call-template>		
+		</xsl:call-template>
+		-->		
 		&#xA0;
-		<span class="titolo1">Relazione DomandaQuiz</span>
+		<span class="titolo1">Domande</span>
 		<div class="btn_minimax" title="Minimizza"><i class="fa fa-window-minimize"></i></div>
 		</div>
 		<xsl:apply-templates select="ListaQuiz_DomandaQuiz" mode="tmlRel"><xsl:with-param name="pos"><xsl:value-of select="position()"/></xsl:with-param></xsl:apply-templates>
 		</div>
 		
-    <div style="margin-left:20px;" id="divRel_Quiz_Test_{$rigapos}" class="divRelazione" chiave="{idquiz}" nomepdc="sm.ciscoop.preno.pdc.patente.Quiz" nomerelaz="Quiz_Test">
+    <!-- <div style="margin-left:20px;" id="divRel_Quiz_Test_{$rigapos}" class="divRelazione" chiave="{idquiz}" nomepdc="sm.ciscoop.preno.pdc.patente.Quiz" nomerelaz="Quiz_Test">
 		<div class="titolorelaz"><a class="refresh_btn cis-button" href="javascript:void(0)" onclick="caricaRelazione(this)">
 		<i class="fa fa-refresh"/>
 		</a>
@@ -370,7 +394,7 @@ function rispondi(idrisptest, valore, tag) {
 		</div>
 		<xsl:apply-templates select="ListaQuiz_Test" mode="tmlRel"><xsl:with-param name="pos"><xsl:value-of select="position()"/></xsl:with-param></xsl:apply-templates>
 		</div>
-		
+	-->	
 
     </td>
 	</tr>
@@ -433,20 +457,21 @@ function rispondi(idrisptest, valore, tag) {
 			<xsl:call-template name="BottoniRiga">
 				<xsl:with-param name="nomepdc">DomandaQuiz</xsl:with-param>
 				<xsl:with-param name="pos"><xsl:value-of select="position()"/></xsl:with-param>
-				<xsl:with-param name="ramochiuso">true</xsl:with-param>
+				<xsl:with-param name="ramochiuso">false</xsl:with-param>
 			</xsl:call-template>
-			<xsl:call-template name="ButtonHref">
+			<!--  <xsl:call-template name="ButtonHref">
 				<xsl:with-param name="href">/preno/patente/HDomandaQuiz?MTipo=V&amp;MPasso=2&amp;IdDomandaTest=<xsl:value-of select="IdDomandaTest"/></xsl:with-param>
-				<xsl:with-param name="title">Modifica un DomandaQuiz</xsl:with-param>
+				<xsl:with-param name="title">Modifica una Domanda</xsl:with-param>
 				<xsl:with-param name="fa-class">fa-edit</xsl:with-param>
-				<xsl:with-param name="onunload">caricaRelazione(this.atag)</xsl:with-param><!--$("#divRel_Quiz_DomandaQuiz_<xsl:value-of select='IdQuiz'/> > div > a.refresh_btn").click()-->
-				<xsl:with-param name="caption">Gestione DomandaQuiz</xsl:with-param>
+				<xsl:with-param name="onunload">caricaRelazione(this.atag)</xsl:with-param>
+				<xsl:with-param name="caption">Gestione Domanda</xsl:with-param>
 			</xsl:call-template>
+			-->
 		</td>
 
 		<td><xsl:value-of select="Domanda/IdCapitolo"/>/<xsl:value-of select="Domanda/IdDom"/></td>
 
-		<td><xsl:if test="Domanda/linkimg != ''"><img border="1" src="/preno/quiz/immagini/{Domanda/linkimg}" height="70" style="margin-right:10px"></img></xsl:if><xsl:value-of select="Domanda/Asserzione"></xsl:value-of></td>
+		<td style="font-size:12pt;font-weight:bold"><xsl:if test="Domanda/linkimg != ''"><img border="1" src="/preno/quiz/immagini/{Domanda/linkimg}" height="70" style="margin-right:10px"></img></xsl:if><xsl:value-of select="Domanda/Asserzione"></xsl:value-of></td>
 
 		</tr >
 
@@ -464,26 +489,26 @@ function rispondi(idrisptest, valore, tag) {
       <xsl:otherwise><xsl:attribute name="class">rigaPari</xsl:attribute></xsl:otherwise>
     </xsl:choose>
     <td colspan="100" class="closed tdRelazione" >
-		<!--xsl:choose>
+		<xsl:choose>
 		<xsl:when test="'1' = '2'"></xsl:when>
-			<xsl:when test="count(ListaQuiz_DomandaQuiz/*[@progr or @result]) &gt; 0"><xsl:attribute name="class">open</xsl:attribute></xsl:when>
+			<xsl:when test="count(ListaDomandaQuiz_RispQuiz/*[@progr or @result]) &gt; 0"><xsl:attribute name="class">open tdRelazione</xsl:attribute></xsl:when>
 			<xsl:when test="count(ListaQuiz_Test/*[@progr or @result]) &gt; 0"><xsl:attribute name="class">open</xsl:attribute></xsl:when>
-		</xsl:choose-->
+		</xsl:choose>
 
 
     <div style="" id="divRel_DomandaQuiz_RispQuiz_{$rigapos}" class="divRelazione" chiave="{IdDomandaTest}" nomepdc="sm.ciscoop.preno.pdc.patente.DomandaQuiz" nomerelaz="DomandaQuiz_RispQuiz">
 		<div class="titolorelaz"><a class="refresh_btn cis-button" href="javascript:void(0)" onclick="caricaRelazione(this)">
 		<i class="fa fa-refresh"/>
 		</a>
-		<xsl:call-template name = "ButtonHref" >
+		<!--  <xsl:call-template name = "ButtonHref" >
 			<xsl:with-param name="href">/preno/patente/HRispQuiz?MTipo=I&amp;MPasso=1&amp;IdDomandaTest=<xsl:value-of select="IdDomandaTest"/></xsl:with-param>
 			<xsl:with-param name="title">Aggiungi una Risposta</xsl:with-param>
 			<xsl:with-param name="fa-class">fa-plus-circle</xsl:with-param>
 			<xsl:with-param name="onunload">caricaRelazione(this.atag)</xsl:with-param>
 			<xsl:with-param name="caption">Gestione Rispostaz</xsl:with-param>
-		</xsl:call-template>		
+		</xsl:call-template> -->		
 		&#xA0;
-		<span class="titolo1">Relazione Risposta</span>
+		<span class="titolo1">Risposte</span>
 		<div class="btn_minimax" title="Minimizza"><i class="fa fa-window-minimize"></i></div>
 		</div>
 		<xsl:apply-templates select="ListaDomandaQuiz_RispQuiz" mode="tmlRel"><xsl:with-param name="pos"><xsl:value-of select="position()"/></xsl:with-param></xsl:apply-templates>
@@ -558,8 +583,8 @@ function rispondi(idrisptest, valore, tag) {
 			</input>			
 		</td>
 
-		<td><xsl:if test="EsitoRisp = 'true'">Corretta</xsl:if>
-		<xsl:if test="EsitoRisp = 'false' and (RespVero = 'true' or RespFalso = 'true')">Sbagliata</xsl:if>
+		<td><xsl:if test="EsitoRisp = 'false' and bControllata = 'true'">Corretta</xsl:if>
+		<xsl:if test="EsitoRisp = 'true' and bControllata = 'true'"><span style="font-weight:bold; color:red">Sbagliata</span></xsl:if>
 		</td>
 
 		</tr >

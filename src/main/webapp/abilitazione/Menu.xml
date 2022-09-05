@@ -52,7 +52,7 @@
 	  	<Voce funzione="HSLstRagazzo" href="/prenota/HSLstRagazzo?MTipo=L&amp;MPasso=2">Lista ragazzi</Voce-->
 	</Menu>
 	<Menu nome="Esami" funzione="Esami" forzaAbilitato="false">
-		<Voce funzione="HSLstQuiz" href="/patente/HSLstQuiz">Lista Quiz</Voce>
+		<Voce funzione="HSLstQuiz" href="/patente/HSLstQuiz?MPasso=2">Lista Quiz</Voce>
 	
 	</Menu>
 	  

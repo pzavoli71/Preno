@@ -53,31 +53,18 @@ function getTitolo(){
 
  
 <xsl:template match="Quiz">
-
 	<xsl:apply-templates select="/DOCUMENTO/Quiz/DtCreazioneTest" mode="CampoData">
 		<xsl:with-param name="size">10</xsl:with-param>
 		<xsl:with-param name="bOra"/>
-		<xsl:with-param name="caption">Data creazione</xsl:with-param>
-	</xsl:apply-templates>
-	<xsl:apply-templates select="/DOCUMENTO/Quiz/CdUtente" mode="CampoEnumerato">
-		<xsl:with-param name="enumerato" select="/DOCUMENTO/LstzUtente/RECORD"></xsl:with-param>
-		
-		<xsl:with-param name="caption">Utente</xsl:with-param>
-		<xsl:with-param name="id">CdUtente</xsl:with-param>
+		<xsl:with-param name="caption">DtCreazioneTest</xsl:with-param>
 	</xsl:apply-templates>
 
-	<!--xsl:apply-templates select="/DOCUMENTO/Quiz/CdUtente" mode="jqcombo">
-		<xsl:with-param name="enumerato" select="/DOCUMENTO/LstzUtente" />
-		
-		<xsl:with-param name="caption">IdVisita</xsl:with-param-->
-		<!--xsl:with-param name="onchange">funzioneDaChiamare</xsl:with-param-->
-		<!--xsl:with-param name="showExtra">true</xsl:with-param-->
-		<!--xsl:with-param name="campi_lista">['nascita_data','idsoggetto']</xsl:with-param-->
-		<!--xsl:with-param name="campi_collegati">['nascita_data','DtNascitaFamCar','idsoggetto','IdSoggettoAus']</xsl:with-param-->
-		<!--xsl:with-param name="campi_filtro">null</xsl:with-param> modalita' dinamica ajax: campi da aggiungere all'url, ad esempio {Cognome: '_text_', IdAzienda: 'IdAzienda'} aggiunge "&Cognome=testocombo&IdAzienda=contenuto del campo con id=IdAzienda"-->
-		<!--xsl:with-param name="url">/inspect/isp/HAllegati</xsl:with-param-->
-		<!--xsl:with-param name="multiselect">true</xsl:with-param-->
-	<!--/xsl:apply-templates-->
+
+	<xsl:apply-templates select="/DOCUMENTO/Quiz/CdUtente" mode="CampoEnumerato">
+		<xsl:with-param name="enumerato" select="/DOCUMENTO/LstzUtente/RECORD"></xsl:with-param>		
+		<xsl:with-param name="caption">CdUtente</xsl:with-param>
+		<xsl:with-param name="id">CdUtente</xsl:with-param>
+	</xsl:apply-templates>
 
 	<xsl:apply-templates select="/DOCUMENTO/Quiz/IdQuiz" mode="CampoIntero">
 		<xsl:with-param name="size">10</xsl:with-param>
@@ -85,6 +72,24 @@ function getTitolo(){
 		<xsl:with-param name="caption">IdQuiz</xsl:with-param>
 	</xsl:apply-templates>
 
+
+	<xsl:apply-templates select="/DOCUMENTO/Quiz/DtInizioTest" mode="CampoData">
+		<xsl:with-param name="size">10</xsl:with-param>
+		<xsl:with-param name="bOra"/>
+		<xsl:with-param name="caption">DtInizioTest</xsl:with-param>
+	</xsl:apply-templates>
+
+	<xsl:apply-templates select="/DOCUMENTO/Quiz/EsitoTest" mode="CampoIntero">
+		<xsl:with-param name="size">10</xsl:with-param>
+		
+		<xsl:with-param name="caption">EsitoTest</xsl:with-param>
+	</xsl:apply-templates>
+
+	<xsl:apply-templates select="/DOCUMENTO/Quiz/DtFineTest" mode="CampoData">
+		<xsl:with-param name="size">10</xsl:with-param>
+		<xsl:with-param name="bOra"/>
+		<xsl:with-param name="caption">DtFineTest</xsl:with-param>
+	</xsl:apply-templates>
 
 </xsl:template>
 </xsl:stylesheet>

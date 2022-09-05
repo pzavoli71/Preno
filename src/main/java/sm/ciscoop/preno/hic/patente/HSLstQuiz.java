@@ -60,11 +60,14 @@ public class HSLstQuiz extends AppSListMask<Quiz> {
 	public static final String SERVLET_NAME     = "HSLstQuiz";
 	public static final String SERVLET_URL      = "/patente/" + HSLstQuiz.SERVLET_NAME;
 
+	BoolAttr c_bRisposteSbagliate;
+	
 	@Override
 	public void initMsk() throws Exception  {
 		super.initMsk();
-		//Attributi attrs = getAttributi();
-		
+		Attributi attrs = getAttributi();
+		c_bRisposteSbagliate = (BoolAttr ) attrs.add("bRisposteSbagliate", PDCType.BOOLEAN);
+		c_bRisposteSbagliate.setValue(false);
 		
 	}
 
@@ -77,8 +80,8 @@ public class HSLstQuiz extends AppSListMask<Quiz> {
 				if ( getPDC().getIdQuiz() > 0)
 					ls += " AND "+Quiz.CSZ_DBTable+".IdQuiz = "+getPDC().getIdQuiz();
 		}
-
-		//ls += " ORDER BY Cognome, Nome";
+		
+		ls += " ORDER BY " + Quiz.CSZ_DBTable + ".IdQuiz desc";
 		return ls;
 	}
 
@@ -117,7 +120,7 @@ public class HSLstQuiz extends AppSListMask<Quiz> {
 	@Override
 	public SimpleList beforeLoadLista(SimpleList lista) throws CISException {
 		if ( c_DIMPAGINA.isEmptyNullOrZero()) {
-			c_DIMPAGINA.setValue(10);
+			c_DIMPAGINA.setValue(20);
 	  }
 		lista.setPageSize(c_DIMPAGINA.getIntValue());
 		return null;
@@ -158,9 +161,11 @@ public class HSLstQuiz extends AppSListMask<Quiz> {
 				}
 				Object relazNames [] = {nomerelaz, rowsPerPage};
 				if ( nomerelaz.equalsIgnoreCase(Quiz.CSZrel_DomandaQuiz)) {
-					relazNames = new Object[4];
+					relazNames = new Object[8];
 					relazNames[0] = (String) nomerelaz; relazNames[1] = (Integer) rowsPerPage;
 					relazNames[2] = DomandaQuiz.CSZrel_Domanda; relazNames[3] = (Integer) 1;
+					relazNames[4] = DomandaQuiz.CSZrel_RispQuiz; relazNames[5] = (Integer) 3;
+					relazNames[6] = RispQuiz.CSZrel_Domanda; relazNames[7] = (Integer) 1;
 				}
 				if ( nomerelaz.equalsIgnoreCase(DomandaQuiz.CSZrel_RispQuiz)) {
 					relazNames = new Object[4];
@@ -205,7 +210,7 @@ public class HSLstQuiz extends AppSListMask<Quiz> {
 		int idQuiz = Integer.parseInt(strIdQuiz);
 		if (idQuiz <= 0) {
 			addMessageError("L'identificativo del test non è valido");
-		  return;
+			return;
 		}
 
 		JBB jbb = getJBB();
@@ -214,7 +219,16 @@ public class HSLstQuiz extends AppSListMask<Quiz> {
 		if ( !jbb.inTransaction())
 			jbb.beginTrans();
 
-		String ls = "select rq.IdRispTest, rq.IdDomandaTest, d.IdDomanda, d.Valore, RespVero, RespFalso from " + DomandaQuiz.CSZ_DBTable + " dq INNER JOIN " + RispQuiz.CSZ_DBTable + " rq ";
+		String ls = "select count(IdQuiz) from " + Quiz.CSZ_DBTable ;
+		ls += " where IdQuiz = " + idQuiz;
+		ls = " and dtiniziotest is not null and dtfinetest is null";
+		int contarighe = jbb.getCount(ls);
+		if (contarighe == 0) {
+			throw new Exception("Il quiz non esiste oppure non è ancora iniziato.");			
+		}
+		
+		int Errori = 0;
+		ls = "select rq.IdRispTest, rq.IdDomandaTest, d.IdDomanda, d.Valore, RespVero, RespFalso, asserzione from " + DomandaQuiz.CSZ_DBTable + " dq INNER JOIN " + RispQuiz.CSZ_DBTable + " rq ";
 		ls += " on rq.IdDomandaTest = dq.IdDomandaTest INNER JOIN " + Domanda.CSZ_DBTable + " d ON d.IdDomanda = rq.IdDomanda ";
 		ls += " where dq.IdQuiz = " + idQuiz;		
 		List<Map<String, Object>> righe = jbb.getRowsAsMap(ls);
@@ -227,23 +241,121 @@ public class HSLstQuiz extends AppSListMask<Quiz> {
 			if ( respvero == 0 && respfalso == 0) {
 				throw new Exception("La domanda alla risposta " + risposta + " non è stata data.");
 			}
-			if (valore == 0 && respvero == 0 || valore != 0 && respfalso != 0)
-				ls = "UPDATE " + RispQuiz.CSZ_DBTable + " SET EsitoRisp = -1 WHERE IdRispTest = " + idrisptest;
+			if (valore == 0 && respvero != 0 || valore != 0 && respfalso != 0) {
+				ls = "UPDATE " + RispQuiz.CSZ_DBTable + " SET EsitoRisp = -1, bControllata = -1 WHERE IdRispTest = " + idrisptest;
+				Errori++;
+			}
 			else
-				ls = "UPDATE " + RispQuiz.CSZ_DBTable + " SET EsitoRisp = 0 WHERE IdRispTest = " + idrisptest;
+				ls = "UPDATE " + RispQuiz.CSZ_DBTable + " SET EsitoRisp = 0 , bControllata = -1 WHERE IdRispTest = " + idrisptest;
 			if ( jbb.execute(ls) != 1) {
 				throw new Exception("Errore in registrazione esito risposta " + risposta + ".");
 			}			
 		}
+		ls = "UPDATE " + Quiz.CSZ_DBTable + " SET DtFineTest = getdate(), EsitoTest = " + (Errori > 0 ? "-" + Errori:"1") + " WHERE IdQuiz = " + idQuiz;
+		if ( jbb.execute(ls) != 1) {
+			throw new Exception("Errore in registrazione esito quiz.");
+		}			
 		
 		addMessageInfo("Comando Terminato correttamente");
+		return;
 		} catch(Exception e) {
 			if ( jbb.inTransaction())
-				jbb.rollbackTrans();			
+				jbb.rollbackTrans();	
+			addMessageError("Errore in esecuzione." + e.getMessage());
+			return;
 		} finally {
 			if ( jbb.inTransaction())
 				jbb.commitTrans();
 		}
+	  case "IniziaTest":
+		strIdQuiz = param.getParameter("IdQuiz");
+		if (strIdQuiz == null || strIdQuiz.trim().length() == 0) {
+			addMessageError("Manca l'identificativo del test");
+			return ;
+		}
+		idQuiz = Integer.parseInt(strIdQuiz);
+		if (idQuiz <= 0) {
+			addMessageError("L'identificativo del test non è valido");
+			return;
+		}
+
+		jbb = getJBB();
+		try {
+		jbb.setUseTransactions(true);
+		if ( !jbb.inTransaction())
+			jbb.beginTrans();
+		
+		String ls = "select DtInizioTest, DtFineTest, EsitoTest from " + Quiz.CSZ_DBTable ;
+		ls += " where IdQuiz = " + idQuiz;		
+		List<Map<String, Object>> righe = jbb.getRowsAsMap(ls);
+		for ( Map<String, Object> riga : righe) {
+			Date dtinizio = (Date) riga.get("dtiniziotest");
+			Date dtfine = (Date) riga.get("dtinetest");
+			if ( dtinizio != null && dtfine == null) {
+				throw new Exception("Il quiz è ancora in corso. Devi terminarlo. ");
+			}
+			ls = "UPDATE " + Quiz.CSZ_DBTable + " SET DtInizioTest = getdate(), DtFineTest = NULL, EsitoTest = 0 WHERE IdQuiz = " + idQuiz;
+			if ( jbb.execute(ls) != 1) {
+				throw new Exception("Errore in registrazione inizio test.");
+			}			
+		}
+		
+		addMessageInfo("Il test è incominciato. Puoi rispondere alle domande.");
+		return;
+		} catch(Exception e) {
+			if ( jbb.inTransaction())
+				jbb.rollbackTrans();	
+			addMessageError("Errore in esecuzione." + e.getMessage());
+			return;
+		} finally {
+			if ( jbb.inTransaction())
+				jbb.commitTrans();
+		}
+	  case "FineTest":
+		strIdQuiz = param.getParameter("IdQuiz");
+		if (strIdQuiz == null || strIdQuiz.trim().length() == 0) {
+			addMessageError("Manca l'identificativo del test");
+			return ;
+		}
+		idQuiz = Integer.parseInt(strIdQuiz);
+		if (idQuiz <= 0) {
+			addMessageError("L'identificativo del test non è valido");
+			return;
+		}
+
+		jbb = getJBB();
+		try {
+		jbb.setUseTransactions(true);
+		if ( !jbb.inTransaction())
+			jbb.beginTrans();
+		
+		String ls = "select DtInizioTest, DtFineTest, EsitoTest from " + Quiz.CSZ_DBTable ;
+		ls += " where IdQuiz = " + idQuiz;		
+		List<Map<String, Object>> righe = jbb.getRowsAsMap(ls);
+		for ( Map<String, Object> riga : righe) {
+			Date dtinizio = (Date) riga.get("dtiniziotest");
+			Date dtfine = (Date) riga.get("dtinetest");
+			if ( dtfine != null || dtinizio == null) {
+				throw new Exception("Il quiz è già terminato oppure non è mai iniziato.");
+			}
+			ls = "UPDATE " + Quiz.CSZ_DBTable + " SET DtFineTest = getdate() , EsitoTest = 0 WHERE IdQuiz = " + idQuiz;
+			if ( jbb.execute(ls) != 1) {
+				throw new Exception("Errore in registrazione inizio test.");
+			}			
+		}
+		
+		addMessageInfo("Comando Terminato correttamente");
+		return;
+		} catch(Exception e) {
+			if ( jbb.inTransaction())
+				jbb.rollbackTrans();	
+			addMessageError("Errore in esecuzione." + e.getMessage());
+			return;
+		} finally {
+			if ( jbb.inTransaction())
+				jbb.commitTrans();
+		}
+
 	}
 	addMessageInfo("Nessun Comando da eseguire!");
   }
