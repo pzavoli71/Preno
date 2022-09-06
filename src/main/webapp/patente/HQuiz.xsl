@@ -18,9 +18,9 @@
 
 <xsl:template name="CssSpec" >
 	<style>
-	/*.cis-field-container .ValoreAttributo {
-		width:350px;
-	}*/
+	.cis-field-container .cis-label {
+		width:150px;
+	}
 	
 	</style>
 </xsl:template>
@@ -54,9 +54,10 @@ function getTitolo(){
  
 <xsl:template match="Quiz">
 	<xsl:apply-templates select="/DOCUMENTO/Quiz/DtCreazioneTest" mode="CampoData">
-		<xsl:with-param name="size">10</xsl:with-param>
+		<xsl:with-param name="size">20</xsl:with-param>
 		<xsl:with-param name="bOra"/>
-		<xsl:with-param name="caption">DtCreazioneTest</xsl:with-param>
+		<xsl:with-param name="caption">Data creazione</xsl:with-param>
+		<xsl:with-param name="readonly">true</xsl:with-param>
 	</xsl:apply-templates>
 
 
@@ -74,9 +75,9 @@ function getTitolo(){
 
 
 	<xsl:apply-templates select="/DOCUMENTO/Quiz/DtInizioTest" mode="CampoData">
-		<xsl:with-param name="size">10</xsl:with-param>
+		<xsl:with-param name="size">12</xsl:with-param>
 		<xsl:with-param name="bOra"/>
-		<xsl:with-param name="caption">DtInizioTest</xsl:with-param>
+		<xsl:with-param name="caption">Data inizio test</xsl:with-param>
 	</xsl:apply-templates>
 
 	<xsl:apply-templates select="/DOCUMENTO/Quiz/EsitoTest" mode="CampoIntero">
@@ -86,9 +87,9 @@ function getTitolo(){
 	</xsl:apply-templates>
 
 	<xsl:apply-templates select="/DOCUMENTO/Quiz/DtFineTest" mode="CampoData">
-		<xsl:with-param name="size">10</xsl:with-param>
+		<xsl:with-param name="size">12</xsl:with-param>
 		<xsl:with-param name="bOra"/>
-		<xsl:with-param name="caption">DtFineTest</xsl:with-param>
+		<xsl:with-param name="caption">Data fine</xsl:with-param>
 	</xsl:apply-templates>
 
 </xsl:template>

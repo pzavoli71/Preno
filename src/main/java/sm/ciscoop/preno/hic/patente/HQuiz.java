@@ -178,18 +178,16 @@ public class HQuiz extends AppSingleMask<Quiz> {
 
 
 	
-	/* Se si hanno fileitem (file da fare upload, scommentare questa funzione e mettere il path del documento dentro il pdc
+	/* Se si hanno fileitem (file da fare upload, scommentare questa funzione e mettere il path del documento dentro il pdc*/
 	@Override
-	public boolean beforeExecIns(Passo nPasso, OpRes opRes) {
-		if (!super.beforeExecIns(nPasso, opRes)) {
+	public boolean beforeExecIns(Passo nPasso) throws Exception {
+		if (!super.beforeExecIns(nPasso)) {
 			return false;
 		}
-
-		if ( c_FileUpload.getCISFileItem() != null &amp;&amp; c_FileUpload.getFileName().length() > 0) {
-			getPDC().setNomeFile("/"+comu.getIdComunicazionePadre()+"/"+getShibIdUtente()+"/"+c_FileUpload.getFileName());
-		}
+		getPDC().setDtCreazioneTest(new Date());
+		return true;
 	}
-	*/
+	
 	
 	@Override
 	public boolean afterExecIns(Passo nPasso, OpRes opRes) throws Exception {

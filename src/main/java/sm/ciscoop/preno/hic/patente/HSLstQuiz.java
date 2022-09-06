@@ -10,6 +10,7 @@ import sm.ciscoop.stdlibs.baseutils.types.Text;
 import sm.ciscoop.stdlibs.db.output.AnySelect;
 import sm.ciscoop.util.RequestParameterMap;
 import sm.ciscoop.dmc.DMCDB;
+import sm.ciscoop.dmc.IspettoreDelleQuery;
 import sm.ciscoop.servlet.OpRes;
 import java.util.*;
 
@@ -52,7 +53,7 @@ import sm.ciscoop.preno.hic.masks.AppSListMask;
 */
 
 @WebServlet(value=HSLstQuiz.SERVLET_URL, name = HSLstQuiz.SERVLET_NAME) 
-public class HSLstQuiz extends AppSListMask<Quiz> {
+public class HSLstQuiz extends AppSListMask<Quiz> implements IspettoreDelleQuery {
   
 	
 	private static final long  serialVersionUID = 1L;
@@ -61,7 +62,7 @@ public class HSLstQuiz extends AppSListMask<Quiz> {
 	public static final String SERVLET_URL      = "/patente/" + HSLstQuiz.SERVLET_NAME;
 
 	BoolAttr c_bRisposteSbagliate;
-	
+	boolean bQueryRisposte = false;
 	@Override
 	public void initMsk() throws Exception  {
 		super.initMsk();
@@ -166,14 +167,17 @@ public class HSLstQuiz extends AppSListMask<Quiz> {
 					relazNames[2] = DomandaQuiz.CSZrel_Domanda; relazNames[3] = (Integer) 1;
 					relazNames[4] = DomandaQuiz.CSZrel_RispQuiz; relazNames[5] = (Integer) 3;
 					relazNames[6] = RispQuiz.CSZrel_Domanda; relazNames[7] = (Integer) 1;
+					bQueryRisposte = true;
 				}
 				if ( nomerelaz.equalsIgnoreCase(DomandaQuiz.CSZrel_RispQuiz)) {
 					relazNames = new Object[4];
 					relazNames[0] = (String) nomerelaz; relazNames[1] = (Integer) rowsPerPage;
 					relazNames[2] = RispQuiz.CSZrel_Domanda; relazNames[3] = (Integer) 1;
+					bQueryRisposte = true;
 				}
 				pdc.enableStruct(relazNames, true);
 				DMCDB dmc = new DMCDB(getMsgHandler(),getDMC());
+				dmc.setQueryInspector(this);
 				pdc.setDMC(dmc);
 				if ( !pdc.load()) {
 					addMessageInfo("Errore in lettura dati Quiz:getxmlCombo:relaz");
@@ -360,7 +364,14 @@ public class HSLstQuiz extends AppSListMask<Quiz> {
 	addMessageInfo("Nessun Comando da eseguire!");
   }
 
-
+  @Override
+  public void inspectQuery(StringBuffer sbSelectList, StringBuffer sbFrom, StringBuffer szWhere,
+		  StringBuffer sbGroupBy, StringBuffer sbHaving, StringBuffer sOrderBy) throws Exception {
+	    if ( !bQueryRisposte)
+	    	return;
+	    sOrderBy.setLength(0);
+	    sOrderBy.append(" order by IdDomandaTest");	  
+  }
 
 }
 
