@@ -177,7 +177,7 @@ public class HSLstQuiz extends AppSListMask<Quiz> implements IspettoreDelleQuery
 				}
 				pdc.enableStruct(relazNames, true);
 				DMCDB dmc = new DMCDB(getMsgHandler(),getDMC());
-				dmc.setQueryInspector(this);
+				pdc.setQueryInspector(this);
 				pdc.setDMC(dmc);
 				if ( !pdc.load()) {
 					addMessageInfo("Errore in lettura dati Quiz:getxmlCombo:relaz");
@@ -255,7 +255,7 @@ public class HSLstQuiz extends AppSListMask<Quiz> implements IspettoreDelleQuery
 				throw new Exception("Errore in registrazione esito risposta " + risposta + ".");
 			}			
 		}
-		ls = "UPDATE " + Quiz.CSZ_DBTable + " SET DtFineTest = getdate(), EsitoTest = " + (Errori > 0 ? "-" + Errori:"1") + " WHERE IdQuiz = " + idQuiz;
+		ls = "UPDATE " + Quiz.CSZ_DBTable + " SET DtFineTest = getdate(), EsitoTest = " + (Errori > 0 ? "-" + Errori:"0") + " WHERE IdQuiz = " + idQuiz;
 		if ( jbb.execute(ls) != 1) {
 			throw new Exception("Errore in registrazione esito quiz.");
 		}			
@@ -370,7 +370,7 @@ public class HSLstQuiz extends AppSListMask<Quiz> implements IspettoreDelleQuery
 	    if ( !bQueryRisposte)
 	    	return;
 	    sOrderBy.setLength(0);
-	    sOrderBy.append(" order by IdDomandaTest");	  
+	    sOrderBy.append(" order by ESA_RispQuiz.IdRispTest");	  
   }
 
 }
