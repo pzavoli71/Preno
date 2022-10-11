@@ -12,7 +12,10 @@ import sm.ciscoop.sec.pdc.zUtente;
 import sm.ciscoop.jbb.IJoinInfo;
 import sm.ciscoop.jbb.JBB;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +45,7 @@ import java.util.Map;
 		[DtInizioTest] [DateTime] ,
 		[EsitoTest] [int] DEFAULT 0 NOT NULL ,
 		[DtFineTest] [DateTime] ,
+		[bRispSbagliate] [int] DEFAULT 0 NOT NULL ,
 		
 		[ultagg] [datetime] DEFAULT (getdate()) NOT NULL,
 		[utente] [varchar](20) DEFAULT '' NOT NULL,
@@ -103,6 +107,12 @@ public class Quiz extends AppPDC {
   public static final String CSZcol_DtFineTest = "DtFineTest";
   public static final String CSZds_DtFineTest = "Dt FineTest";
   private DateTimeAttr  c_DtFineTest;
+ 	
+  
+  /** Il quiz recupera dal db principalmente le domande che hanno avuto una prevalenza di risposte sbagliate. */
+  public static final String CSZcol_bRispSbagliate = "bRispSbagliate";
+  public static final String CSZds_bRispSbagliate = "bRispSbagliate";
+  private BoolAttr  c_bRispSbagliate;
  	
   
   // =============================================================
@@ -246,6 +256,11 @@ public class Quiz extends AppPDC {
 
 
     
+    // bRispSbagliate
+    c_bRispSbagliate = attr.addBoolAttr(CSZcol_bRispSbagliate, CSZds_bRispSbagliate, CSZ_DBTable, false);
+   c_bRispSbagliate.setUseDefaultIfNull(true);
+
+    
     return true;
   }
 
@@ -365,6 +380,16 @@ public class Quiz extends AppPDC {
 		return c_DtFineTest;
 	}
 
+	public Boolean getbRispSbagliate() {
+		return c_bRispSbagliate.getValue();
+	}
+	public void setbRispSbagliate(Boolean val) {
+		c_bRispSbagliate.setValue(val);
+	}
+	public BoolAttr getbRispSbagliate_attr() {
+		return c_bRispSbagliate;
+	}
+
   /**
    * Ripristina il pdc da DMCDB.
 
@@ -399,6 +424,75 @@ public class Quiz extends AppPDC {
 			return false;
 		if ( isInInserimento()) {
 			JBB jb = getJBB();
+			Hashtable<Integer, Hashtable<Integer, BigDecimal>> capitoli = new Hashtable<>(); 
+			if ( getbRispSbagliate()) {
+				// Carico l'array delle domande da fare in maniera inversa rispetto a quante risposte sbagliate sono state 
+				// date nel passato
+				String ls = "select d.IdCapitolo, d.IdDomanda, d.Asserzione, (";
+				ls += " select count(*) from ESA_DomandaQuiz dq where dq.IdDomanda = d.IdDomanda";
+				ls += " ) as ConteggioDomandeFatte,";
+				ls += " IsNull(t.RisposteSbagliate,0) as RisposteSbagliate";
+				ls += " from ESA_Domanda d left outer join"; 
+				ls += " (";
+				ls += " select dd.IdDomanda, count(rq.IdDomandaTest) as RisposteSbagliate";
+				ls += " from esa_rispquiz rq inner join ESA_Domanda d1 on d1.IdDomanda = rq.IdDomanda";
+				ls += " inner join ESA_Domanda dd on dd.IdCapitolo = d1.IdCapitolo and dd.IdDom = d1.IdDom and dd.IdProgr = 0";
+				ls += " inner join ESA_DomandaQuiz dq on dq.IdDomandaTest = rq.IdDomandaTest";
+				ls += " where rq.EsitoRisp = -1 and rq.bControllata = -1";
+				ls += " and"; 
+				ls += " ((d1.valore != 0 and RespVero = 0) or (d1.valore = 0 and RespFalso = 0))";
+				ls += " group by dd.IdDomanda";
+				ls += " ) t";
+				ls += " on t.IdDomanda = d.IdDomanda";
+				ls += " where d.idprogr = 0";
+				ls += " ORDER BY D.iDcAPITOLO, D.iDdOMANDA";
+				List<Map<String, Object>> righed = jb.getRowsAsMap(ls);
+				if ( righed == null) 
+					throw new Exception("Non trovo l'elenco delle domande sbagliate");
+				int somma = 0, numdomande = 0, oldidcap = 0;;
+				for (Map<String, Object> riga: righed) {
+					Integer idcapitolo = (Integer) riga.get("idcapitolo");
+					Hashtable<Integer, BigDecimal> htdomande = capitoli.get(idcapitolo);
+					if ( htdomande == null) {
+						// Ho trovato un nuovo capitolo. Aggiorno i pesi delle domande del capitolo precedente, rispetto a 1.0
+						if ( oldidcap > 0) {
+							htdomande = capitoli.get(oldidcap);
+							Enumeration<Integer> en = htdomande.keys();
+							while ( en.hasMoreElements()) {
+								Integer iddom = en.nextElement();
+								BigDecimal bd = htdomande.get(iddom);
+								bd = new BigDecimal( bd.doubleValue() / somma);
+								htdomande.put(iddom, bd);
+							}
+						}
+						htdomande = new Hashtable<Integer, BigDecimal>();
+						capitoli.put(idcapitolo, htdomande);
+						somma = 0; numdomande = 0;
+					}
+					BigDecimal bdValore;
+					Integer iddomanda = (Integer) riga.get("iddomanda");
+					int conteggiodomandefatte = (Integer) riga.get("conteggiodomandefatte");
+					int rispsbagliate = (Integer) riga.get("rispostesbagliate");
+					if ( conteggiodomandefatte == 0)
+						bdValore = new BigDecimal(1000.0);
+					else
+						bdValore = new BigDecimal(rispsbagliate);
+					htdomande.put(iddomanda, bdValore);
+					somma += bdValore.doubleValue();
+					numdomande++;
+					oldidcap = idcapitolo;
+				}				
+				if ( oldidcap > 0) {
+					Hashtable<Integer, BigDecimal> htdomande = capitoli.get(oldidcap);
+					Enumeration<Integer> en = htdomande.keys();
+					while ( en.hasMoreElements()) {
+						Integer iddom = en.nextElement();
+						BigDecimal bd = htdomande.get(iddom);
+						bd = new BigDecimal( bd.doubleValue() / somma);
+						htdomande.put(iddom, bd);
+					}
+				}
+			}
 			String ls = "select distinct IdCapitolo from " + Domanda.CSZ_DBTable + " order by 1";
 			List<Map<String, Object>> righecapitoli = jb.getRowsAsMap(ls);
 			if ( righecapitoli == null) 
@@ -413,6 +507,11 @@ public class Quiz extends AppPDC {
 				elemrandomtrovato[0] = -1; double rnd0 = -1.0;
 				for ( int i = 0; i < righedomande.size(); i++) {
 					double rnd2 = Math.random();
+					if ( capitoli.size() > 0) {
+						Hashtable<Integer, BigDecimal> htdomande = capitoli.get(idcapitolo);
+						BigDecimal bd = htdomande.get((Integer) righedomande.get(i).get("iddomanda"));
+						rnd2 = bd.doubleValue();
+					}
 					if ( rnd2 > rnd0) {
 						elemrandomtrovato[0] = i;
 						rnd0 = rnd2;

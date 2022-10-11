@@ -242,6 +242,8 @@ function rispondi(idrisptest, valore, tag) {
 		<th ></th>
 		<th data-nomecol='IdQuiz'>Id</th>
 
+		<th data-nomecol='bRisposteSbagliate'>Quiz preso da risposte sbagliate?</th>
+		
 		<th data-nomecol='DtCreazioneTest'>Data creazione</th>
 
 		<th data-nomecol='DtCreazioneTest'>Inizio/Fine test</th>
@@ -282,6 +284,7 @@ function rispondi(idrisptest, valore, tag) {
 
 		</td>
 		<td><xsl:value-of select="idquiz"/></td>
+		<td><xsl:if test="brispsbagliate = -1">Sì</xsl:if></td>
 
 		<td><xsl:value-of select="dtcreazionetest"/></td>
 		<td><xsl:value-of select="dtiniziotest"/><br/><xsl:value-of select="dtfinetest"/></td>

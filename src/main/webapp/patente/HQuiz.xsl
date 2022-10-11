@@ -75,21 +75,27 @@ function getTitolo(){
 
 
 	<xsl:apply-templates select="/DOCUMENTO/Quiz/DtInizioTest" mode="CampoData">
-		<xsl:with-param name="size">12</xsl:with-param>
+		<xsl:with-param name="size">15</xsl:with-param>
 		<xsl:with-param name="bOra"/>
 		<xsl:with-param name="caption">Data inizio test</xsl:with-param>
 	</xsl:apply-templates>
 
 	<xsl:apply-templates select="/DOCUMENTO/Quiz/EsitoTest" mode="CampoIntero">
 		<xsl:with-param name="size">10</xsl:with-param>
-		
+		<xsl:with-param name="readonly">10</xsl:with-param>
 		<xsl:with-param name="caption">EsitoTest</xsl:with-param>
 	</xsl:apply-templates>
 
 	<xsl:apply-templates select="/DOCUMENTO/Quiz/DtFineTest" mode="CampoData">
-		<xsl:with-param name="size">12</xsl:with-param>
+		<xsl:with-param name="size">15</xsl:with-param>
 		<xsl:with-param name="bOra"/>
 		<xsl:with-param name="caption">Data fine</xsl:with-param>
+	</xsl:apply-templates>
+
+	<xsl:apply-templates select="/DOCUMENTO/Quiz/bRispSbagliate" mode="CampoCheckbox">
+		<xsl:with-param name="size">10</xsl:with-param>
+		
+		<xsl:with-param name="caption">Usa risposte sbagliate precedenti</xsl:with-param>
 	</xsl:apply-templates>
 
 </xsl:template>

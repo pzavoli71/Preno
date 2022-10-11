@@ -58,11 +58,14 @@ public class HQuiz extends AppSingleMask<Quiz> {
 		
 	// UploadAttr
 	// UploadAttr	c_FileUpload;
-	
+	BoolAttr c_bRisposteSbagliate;
 	
 	@Override
 	public void initMsk() throws Exception  {
 		super.initMsk();
+		Attributi attrs = getAttributi();
+		c_bRisposteSbagliate = (BoolAttr) attrs.add("bRisposteSbagliate", PDCType.BOOLEAN);
+		c_bRisposteSbagliate.setValue(false);
 	}
 
 /*-
