@@ -2,10 +2,12 @@ package sm.ciscoop.preno.hic.abilitazione;
 
 
 import java.net.URL;
+import java.util.Map;
 
 import javax.servlet.annotation.WebServlet;
 
 import sm.ciscoop.preno.hic.masks.IAppMask;
+import sm.ciscoop.preno.pdc.soggetti.Soggetto;
 import sm.ciscoop.preno.utils.AppProperties;
 import sm.ciscoop.sec.AccessManager;
 import sm.ciscoop.sec.pdc.zRuolo;
@@ -59,7 +61,12 @@ public class HLogon extends HCommonLogon implements IAppMask {
 				if ( !Text.isValue(dsUtente)) {
 					dsUtente = getIdUtente();
 				}
-
+				String ls = "select IdSoggetto from " + Soggetto.CSZ_DBTable + " WHERE CdUtente = " + cdUtente;
+				Map<String, Object> riga = getJBB().get1StRowMap(ls);
+				if ( riga != null && riga.size() > 0) {
+					profiloUtente.setValue("IdSoggetto", riga.get("idsoggetto"));
+				}									
+				
 				profiloUtente.setValue(ColonneProfiloUtente.CDUTENTE.getNome(), cdUtente);
 				profiloUtente.setValue(ColonneProfiloUtente.IDUTENTE.getNome(), idUtente);
 				profiloUtente.setValue(ColonneProfiloUtente.DSUTENTE.getNome(), dsUtente);

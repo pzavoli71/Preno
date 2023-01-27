@@ -264,6 +264,13 @@
                   <type>zip</type>
                   <outputDirectory>${cis.war.app.themes.dir}/atlanta-1.1.0-SNAPSHOT</outputDirectory>
                 </artifactItem>
+                <!-- artifactItem>
+                  <groupId>sm.ciscoop.themes</groupId>
+                  <artifactId>webCall</artifactId>
+                  <version>1.0.0-SNAPSHOT</version>
+                  <type>zip</type>
+                  <outputDirectory>${cis.war.app.themes.dir}/atlanta-1.1.0-SNAPSHOT/webcall-1.0.0-SNAPSHOT</outputDirectory>
+                </artifactItem-->                
               </artifactItems>
               <overWriteReleases>false</overWriteReleases>
               <overWriteSnapshots>true</overWriteSnapshots>

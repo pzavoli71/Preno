@@ -46,7 +46,9 @@
 		<Voce funzione="HLstGiorno" href="/prenota/HLstGiorno?MPasso=2">Calendario</Voce>
 	  	
 		<Voce funzione="HLstTipoTrasporto" href="/prenota/HLstTipoTrasporto">Lista TRASPORTI</Voce>
-	  	
+		<Voce funzione="HSLstObiettivo" href="/busy/HSLstObiettivo?MTipo=L&amp;MPasso=2">Lista obiettivi</Voce>
+  		<Voce funzione="HLstTipoOccupazione" href="/busy/HLstTipoOccupazione?MTipo=L&amp;MPasso=2">Lista Tipi occupazioni</Voce>
+  	
 	  	
 	  	<!-- Voce funzione="HSLstPrenoGiorno" href="/prenota/HSLstPrenoGiorno?MTipo=L&amp;MPasso=2">Lista Prenotazioni</Voce>
 	  	<Voce funzione="HSLstRagazzo" href="/prenota/HSLstRagazzo?MTipo=L&amp;MPasso=2">Lista ragazzi</Voce-->
